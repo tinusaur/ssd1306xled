@@ -20,7 +20,7 @@
 #include "ssd1306xled.h"
 #include "font6x8.h"
 #include "font8X16.h"
-#include "font16X16cn.h"
+#include "font16x16cn.h"
 
 // ----------------------------------------------------------------------------
 
@@ -212,7 +212,7 @@ void ssd1306_char_f16x16(uint8_t x, uint8_t y, uint8_t N)
 	ssd1306_send_data_start();
 	for(wm = 0; wm < 16; wm++)
 	{
-		ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8X16cn[adder]));
+		//ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8X16cn[adder]));
 		adder += 1;
 	}
 	ssd1306_send_data_stop();
@@ -220,7 +220,7 @@ void ssd1306_char_f16x16(uint8_t x, uint8_t y, uint8_t N)
 	ssd1306_send_data_start();
 	for(wm = 0;wm < 16;wm++)
 	{
-		ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8X16cn[adder]));
+		//ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8X16cn[adder]));
 		adder += 1;
 	}
 	ssd1306_send_data_stop();
