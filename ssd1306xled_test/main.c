@@ -16,12 +16,21 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-// ----------------------------------------------------------------------------
+// ======================================
+//                ATtiny
+//               25/45/85
+//              +----------+
+//        RST --+ PB5  Vcc +---(+)-------
+//            --+ PB3  PB2 +---SCL-------
+//            --+ PB4  PB1 +-- 
+// -------(-)---+ GND  PB0 +---SDA-------
+//              +----------+
+// ======================================
 
-// ---------------------	// Vcc,	Pin 1 on SSD1306 Board
-// ---------------------	// GND,	Pin 2 on SSD1306 Board
-#define SSD1306_SCL		PB0	// SCL,	Pin 3 on SSD1306 Board
-#define SSD1306_SDA		PB1	// SDA,	Pin 4 on SSD1306 Board
+// -----(+)--------------->	// Vcc,	Pin 1 on SSD1306 Board
+// -----(-)--------------->	// GND,	Pin 2 on SSD1306 Board
+#define SSD1306_SCL		PB2	// SCL,	Pin 3 on SSD1306 Board
+#define SSD1306_SDA		PB0	// SDA,	Pin 4 on SSD1306 Board
 
 #define SSD1306_SA		0x78	// Slave address
 

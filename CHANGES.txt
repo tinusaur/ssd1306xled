@@ -3,6 +3,15 @@ CHANGES
 
 2015-01-10 (nb)
 
+Changed default pins for display, now PB0=SCL and PB1=SDA. Source code reformatting, improvements, edited comments.
+
+- Changed default pins for connecting to the display for consistency with the built-in TWI interface, they are now PB0=SCL and PB1=SDA.
+- Source code, removed redundant initializations of variables.
+- Source code reformatting, edited comments.
+
+
+2015-01-10 (nb)
+
 Fixed some warnings, variables renamed. The font16x16/Chinese stuff moved to other folders.
 
 - Font variable ssd1306xled_font8X16 renamed to ssd1306xled_font8x16 for consistency. TODO: rename "ssd1306xled_font8x16" file as well.

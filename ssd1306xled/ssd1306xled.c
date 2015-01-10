@@ -82,9 +82,9 @@ void ssd1306_xfer_stop(void)
 void ssd1306_send_byte(uint8_t byte)
 {
 	uint8_t i;
-	for(i=0; i<8; i++)
+	for (i = 0; i < 8; i++)
 	{
-		if((byte << i) & 0x80)
+		if ((byte << i) & 0x80)
 			DIGITAL_WRITE_HIGH(SSD1306_SDA);
 		else
 			DIGITAL_WRITE_LOW(SSD1306_SDA);
@@ -124,23 +124,22 @@ void ssd1306_setpos(uint8_t x, uint8_t y)
 	ssd1306_send_byte(SSD1306_SA);  //Slave address,SA0=0
 	ssd1306_send_byte(0x00);	//write command
 
-	ssd1306_send_byte(0xb0+y);
-	ssd1306_send_byte(((x&0xf0)>>4)|0x10); // |0x10
-	ssd1306_send_byte((x&0x0f)|0x01); // |0x01
+	ssd1306_send_byte(0xb0 + y);
+	ssd1306_send_byte(((x & 0xf0) >> 4) | 0x10); // |0x10
+	ssd1306_send_byte((x & 0x0f) | 0x01); // |0x01
 
 	ssd1306_xfer_stop();
 }
 
 void ssd1306_fillscreen(uint8_t fill)
 {
-	uint8_t m,n;
-	for(m=0;m<8;m++)
+	for (uint8_t m = 0; m < 8; m++)
 	{
-		ssd1306_send_command(0xb0+m);	//page0-page1
-		ssd1306_send_command(0x00);		//low column start address
-		ssd1306_send_command(0x10);		//high column start address
+		ssd1306_send_command(0xb0 + m);	// page0 - page1
+		ssd1306_send_command(0x00);		// low column start address
+		ssd1306_send_command(0x10);		// high column start address
 		ssd1306_send_data_start();
-		for(n=0;n<128;n++)
+		for (uint8_t n = 0; n < 128; n++)
 		{
 			ssd1306_send_byte(fill);
 		}
@@ -150,20 +149,20 @@ void ssd1306_fillscreen(uint8_t fill)
 
 void ssd1306_char_f6x8(uint8_t x, uint8_t y, const char ch[])
 {
-	uint8_t c,i,j=0;
-	while(ch[j] != '\0')
+	uint8_t c, j = 0;
+	while (ch[j] != '\0')
 	{
 		c = ch[j] - 32;
-		if(x>126)
+		if (x > 126)
 		{
-			x=0;
+			x = 0;
 			y++;
 		}
-		ssd1306_setpos(x,y);
+		ssd1306_setpos(x, y);
 		ssd1306_send_data_start();
-		for(i=0;i<6;i++)
+		for (uint8_t i = 0; i < 6; i++)
 		{
-			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font6x8[c*6+i]));
+			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font6x8[c * 6 + i]));
 		}
 		ssd1306_send_data_stop();
 		x += 6;
@@ -173,48 +172,45 @@ void ssd1306_char_f6x8(uint8_t x, uint8_t y, const char ch[])
 
 void ssd1306_char_f8x16(uint8_t x, uint8_t y, const char ch[])
 {
-	uint8_t c=0,i=0,j=0;
-	while (ch[j]!='\0')
+	uint8_t c, j = 0;
+	while (ch[j] != '\0')
 	{
 		c = ch[j] - 32;
-		if (x>120)
+		if (x > 120)
 		{
-			x=0;
+			x = 0;
 			y++;
 		}
-		ssd1306_setpos(x,y);
+		ssd1306_setpos(x, y);
 		ssd1306_send_data_start();
-		for(i=0;i<8;i++)
+		for (uint8_t i = 0; i < 8; i++)
 		{
-			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[c*16+i]));
+			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[c * 16 + i]));
 		}
 		ssd1306_send_data_stop();
-		ssd1306_setpos(x,y+1);
+		ssd1306_setpos(x, y + 1);
 		ssd1306_send_data_start();
-		for(i=0;i<8;i++)
+		for (uint8_t i = 0; i < 8; i++)
 		{
-			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[c*16+i+8]));
+			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[c * 16 + i + 8]));
 		}
 		ssd1306_send_data_stop();
-		x+=8;
+		x += 8;
 		j++;
 	}
 }
 
 void ssd1306_draw_bmp(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, const uint8_t bitmap[])
 {
-	unsigned int j = 0;
-	uint8_t x,y;
-
-	if(y1%8==0)
-	y=y1/8;
-	else
-	y=y1/8+1;
-	for(y=y0;y<y1;y++)
+	uint16_t j = 0;
+	uint8_t y;
+	if (y1 % 8 == 0) y = y1 / 8;
+	else y = y1 / 8 + 1;
+	for (y = y0; y < y1; y++)
 	{
 		ssd1306_setpos(x0,y);
 		ssd1306_send_data_start();
-		for(x=x0;x<x1;x++)
+		for (uint8_t x = x0; x < x1; x++)
 		{
 			ssd1306_send_byte(pgm_read_byte(&bitmap[j++]));
 		}
