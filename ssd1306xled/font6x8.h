@@ -16,7 +16,7 @@
 // ----------------------------------------------------------------------------
 
 /* Standard ASCII 6x8 font */
-static uint8_t ssd1306xled_font6x8 [] PROGMEM = {
+const uint8_t ssd1306xled_font6x8 [] PROGMEM = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // sp
   0x00, 0x00, 0x00, 0x2f, 0x00, 0x00, // !
   0x00, 0x00, 0x07, 0x00, 0x07, 0x00, // "
