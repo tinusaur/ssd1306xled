@@ -37,6 +37,7 @@
 // ----------------------------------------------------------------------------
 
 #include "../ssd1306xled/ssd1306xled.h"
+#include "../ssd1306xled/ssd1306xled8x16.h"
 
 // ============================================================================
 
@@ -66,11 +67,16 @@ int main(void)
 		}
 
 		ssd1306_fillscreen(0x00);
-		ssd1306_char_f6x8(31, 0, "This is the");
-		ssd1306_char_f8x16(32, 1, "Tinusaur");
-		ssd1306_char_f6x8(43, 3, "project");
-		ssd1306_char_f6x8(7, 7, "http://tinusaur.org");
-		_delay_ms(2000);
+		ssd1306_setpos(0, 1);
+		ssd1306_string_font6x8("That's the");
+		ssd1306_char_f8x16(64, 0, "Tinusaur");
+		// ssd1306_setpos(43, 3);
+		// ssd1306_string_font6x8("project");
+		ssd1306_setpos(0, 3);
+		ssd1306_string_font6x8("The platform that gives you everything you need for your first microcontroller project");
+		ssd1306_setpos(12, 7);
+		ssd1306_string_font6x8("http://tinusaur.org");
+		_delay_ms(6000);
 		
 		ssd1306_draw_bmp(0,0,128,8, img1_128x64c1);
 		_delay_ms(4000);
