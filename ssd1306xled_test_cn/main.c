@@ -31,8 +31,7 @@
 
 // ============================================================================
 
-#include "img0_128x64c1.h"
-#include "img1_128x64c1.h"
+#include "../ssd1306xled_cn/font1616cn.h"
 
 // ============================================================================
 
@@ -57,17 +56,13 @@ int main(void)
 		}
 
 		ssd1306_fillscreen(0x00);
-		ssd1306_char_f6x8(31, 0, "This is the");
-		ssd1306_char_f8x16(32, 1, "Tinusaur");
-		ssd1306_char_f6x8(43, 3, "project");
-		ssd1306_char_f6x8(7, 7, "http://tinusaur.org");
-		_delay_ms(2000);
 		
-		ssd1306_draw_bmp(0,0,128,8, img1_128x64c1);
+		ssd1306_char_f16x16(0,5,0);
+		ssd1306_char_f16x16(16,5,1);
+		ssd1306_char_f16x16(32,5,2);
+		ssd1306_char_f16x16(48,5,3);
+		ssd1306_char_f16x16(64,5,4);
 		_delay_ms(4000);
-
-		ssd1306_draw_bmp(0,0,128,8, img0_128x64c1);
-		_delay_ms(6000);
 	}
 	
 	return (0);

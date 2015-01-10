@@ -1,13 +1,12 @@
 /*
-* SSD1306xLED - Drivers for SSD1306 controlled dot matrix OLED/PLED 128x64 displays
-*
-* @file: font16x16cn.h
-* @created: 2014-08-12
-* @author: Neven Boyanov
-*
-* Source code available at: https://bitbucket.org/tinusaur/ssd1306xled
-*
-*/
+ * SSD1306xLED - Drivers for SSD1306 controlled dot matrix OLED/PLED 128x64 displays
+ *
+ * @created: 2014-08-12
+ * @author: Neven Boyanov
+ *
+ * Source code available at: https://bitbucket.org/tinusaur/ssd1306xled
+ *
+ */
 
 /****************************************************************
 *
@@ -20,7 +19,7 @@
 #include <avr/pgmspace.h>
 
 /* 16*16 汉字取字方式：共阴——列行式——逆向输出 */
-const uint8_t ssd1306xled_font8X16cn [] PROGMEM = {
+const uint8_t ssd1306xled_font16x16cn [] PROGMEM = {
 	0x00,0x02,0x02,0xFA,0xFA,0xAA,0xAA,0xFF,0xFF,0xAA,0xAA,0xFA,0xFA,0x02,0x02,0x00,
 	0x00,0x42,0x72,0x72,0x3A,0x7A,0x42,0x4B,0x5B,0x52,0x62,0x62,0x13,0x77,0x66,0x00, // "惠",0
 

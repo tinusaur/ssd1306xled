@@ -1,6 +1,22 @@
 CHANGES
 
 
+2015-01-10 (nb)
+
+Fixed some warnings, variables renamed. The font16x16/Chinese stuff moved to other folders.
+
+- Font variable ssd1306xled_font8X16 renamed to ssd1306xled_font8x16 for consistency. TODO: rename "ssd1306xled_font8x16" file as well.
+- Fixed ssd1306_draw_bmp prototype: added "const" to bitmap so it wont't generate warning.
+- Files related to font 16x16 (Chinese) moved to different folders: font16x16cn.h.
+- Functions and other code related to font 16x16 (Chinese) moved to different folders.
+- Source code reformatting, edited comments.
+
+
+2014-10-26 (gs)
+
+Make project compile on gcc-avr - turn static images to consts, and rename include of font16x16cn.h
+
+
 2014-08-13 (nb)
 
 More files added to the repository.

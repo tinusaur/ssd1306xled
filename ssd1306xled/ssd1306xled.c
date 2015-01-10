@@ -1,7 +1,6 @@
 /*
  * SSD1306xLED - Drivers for SSD1306 controlled dot matrix OLED/PLED 128x64 displays
  *
- * @file: ssd1306xled.c
  * @created: 2014-08-12
  * @author: Neven Boyanov
  *
@@ -13,14 +12,12 @@
 
 #include <stdlib.h>
 #include <avr/io.h>
-#include <util/delay.h>
 
 #include <avr/pgmspace.h>
 
 #include "ssd1306xled.h"
 #include "font6x8.h"
-#include "font8X16.h"
-#include "font16x16cn.h"
+#include "font8x16.h"
 
 // ----------------------------------------------------------------------------
 
@@ -134,7 +131,7 @@ void ssd1306_setpos(uint8_t x, uint8_t y)
 	ssd1306_xfer_stop();
 }
 
-void ssd1306_fillscreen(uint8_t fill_Data)
+void ssd1306_fillscreen(uint8_t fill)
 {
 	uint8_t m,n;
 	for(m=0;m<8;m++)
@@ -145,7 +142,7 @@ void ssd1306_fillscreen(uint8_t fill_Data)
 		ssd1306_send_data_start();
 		for(n=0;n<128;n++)
 		{
-			ssd1306_send_byte(fill_Data);
+			ssd1306_send_byte(fill);
 		}
 		ssd1306_send_data_stop();
 	}
@@ -174,7 +171,7 @@ void ssd1306_char_f6x8(uint8_t x, uint8_t y, const char ch[])
 	}
 }
 
-void ssd1306_char_f8x16(uint8_t x, uint8_t y,const char ch[])
+void ssd1306_char_f8x16(uint8_t x, uint8_t y, const char ch[])
 {
 	uint8_t c=0,i=0,j=0;
 	while (ch[j]!='\0')
@@ -189,14 +186,14 @@ void ssd1306_char_f8x16(uint8_t x, uint8_t y,const char ch[])
 		ssd1306_send_data_start();
 		for(i=0;i<8;i++)
 		{
-			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8X16[c*16+i]));
+			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[c*16+i]));
 		}
 		ssd1306_send_data_stop();
 		ssd1306_setpos(x,y+1);
 		ssd1306_send_data_start();
 		for(i=0;i<8;i++)
 		{
-			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8X16[c*16+i+8]));
+			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[c*16+i+8]));
 		}
 		ssd1306_send_data_stop();
 		x+=8;
@@ -204,29 +201,7 @@ void ssd1306_char_f8x16(uint8_t x, uint8_t y,const char ch[])
 	}
 }
 
-void ssd1306_char_f16x16(uint8_t x, uint8_t y, uint8_t N)
-{
-	uint8_t wm=0;
-	unsigned int adder = 32 * N;
-	ssd1306_setpos(x , y);
-	ssd1306_send_data_start();
-	for(wm = 0; wm < 16; wm++)
-	{
-		//ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8X16cn[adder]));
-		adder += 1;
-	}
-	ssd1306_send_data_stop();
-	ssd1306_setpos(x,y + 1);
-	ssd1306_send_data_start();
-	for(wm = 0;wm < 16;wm++)
-	{
-		//ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8X16cn[adder]));
-		adder += 1;
-	}
-	ssd1306_send_data_stop();
-}
-
-void ssd1306_draw_bmp(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t bitmap[])
+void ssd1306_draw_bmp(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, const uint8_t bitmap[])
 {
 	unsigned int j = 0;
 	uint8_t x,y;
