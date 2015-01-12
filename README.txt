@@ -4,4 +4,13 @@ SSD1306xLED is a C library for working with the SSD1306 display driver to contro
 
 SSD1306xLED is written in plain C and does not require any additional libraries to function except those that come with the WinAVR SDK.
 
+-----------------------------------------------------------------------------------
+ Copyright (c) 2015 Neven Boyanov, Tinusaur Team. All Rights Reserved.
+
+ Distributed as open source software under MIT License, see LICENSE.txt file.
+
+ Please, as a favour, retain the link http://tinusaur.org to The Tinusaur Project.
+
+-----------------------------------------------------------------------------------
+
 
