@@ -1,6 +1,8 @@
 TODO
 
 
-- Implement power saving mode
+- Print decimal numbers.
+- Short vertical line.
 
+- Implement power saving mode.
 

@@ -1,6 +1,11 @@
 CHANGES
 
 
+2015-01-12 (nb)
+
+Updated RESEARCH and TODO files.
+
+
 2015-01-10 (nb)
 
 Fixed and improved initialization. New and improved printing of text. Updated texts.
