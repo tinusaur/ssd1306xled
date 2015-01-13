@@ -1,6 +1,11 @@
 CHANGES
 
 
+2015-01-13 (nb)
+
+Updated README file - added folders and files layout.
+
+
 2015-01-12 (nb)
 
 Added MIT License info, added LICENSE.txt file. Added licensing info to the source code file.
