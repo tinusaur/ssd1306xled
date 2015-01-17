@@ -11,7 +11,7 @@ SSD1306xLED is a C library for working with the SSD1306 display driver to contro
 SSD1306xLED is written in plain C and does not require any additional libraries to function except those that come with the WinAVR SDK.
 
 
-==== Folder and Files Structure ====
+==== Folders and Files Structure ====
 
 - ssd1306xled           - the SSD1306xLED library
    - font6x8.h          - small 6x8 font

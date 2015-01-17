@@ -42,6 +42,9 @@ void ssd1306_setpos(uint8_t x, uint8_t y);
 void ssd1306_fillscreen(uint8_t fill);
 void ssd1306_char_font6x8(char ch);
 void ssd1306_string_font6x8(char *s);
+void ssd1306_numdec_font6x8(uint16_t num);
+void ssd1306_numdecp_font6x8(uint16_t num);
+
 void ssd1306_draw_bmp(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, const uint8_t bitmap[]);
 
 // ----------------------------------------------------------------------------

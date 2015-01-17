@@ -62,15 +62,53 @@ int main(void)
 
 	while (1) {
 
+		// ---- Fill out screen with patters ----
 		uint8_t p = 0xff;
-		for (uint8_t i = 0; i < 4; i++)
+		for (uint8_t i = 0; i < 5; i++)
 		{
 			p = (p >> i);
 			ssd1306_fillscreen(~p);
 			_delay_ms(100);
 		}
+		_delay_ms(1000);
 
-		ssd1306_fillscreen(0x00);
+		// ---- Print numbers on the screen ----
+		ssd1306_fillscreen(0x55);	// Clear screen
+		uint16_t n1 = 0;
+		for (uint8_t j = 0; j < 8; j++) {
+			ssd1306_setpos(0, j);
+			for (uint8_t i = 0; i < 7; i++) {
+				ssd1306_numdec_font6x8(n1++);
+				ssd1306_string_font6x8(" ");
+			}
+		}
+		_delay_ms(4000);
+		ssd1306_fillscreen(0x55);	// Clear screen
+		uint16_t n2 = 199;
+		for (uint8_t j = 1; j < 7; j++) {
+			ssd1306_setpos(8, j);
+			for (uint8_t i = 0; i < 3; i++) {
+				ssd1306_numdecp_font6x8(n2);
+				ssd1306_string_font6x8(" ");
+				n2 += 567;
+			}
+		}
+		_delay_ms(4000);
+		ssd1306_fillscreen(0x55);	// Clear screen
+		uint16_t n3 = 0;
+		for (uint8_t i = 0; i < 163; i++) {
+			ssd1306_setpos(40, 3);
+			ssd1306_string_font6x8("a=");
+			ssd1306_numdecp_font6x8(n3);
+			ssd1306_setpos(40, 4);
+			ssd1306_string_font6x8("b=");
+			ssd1306_numdecp_font6x8(0xffff - n3);
+			n3 += (n3 * 3) / 33 + 1;
+		}
+		_delay_ms(2000);
+
+		// ---- Print text on the screen ----
+		ssd1306_fillscreen(0x00);	// Clear screen
 		ssd1306_setpos(0, 1);
 		ssd1306_string_font6x8("That's the");
 		ssd1306_char_f8x16(64, 0, "Tinusaur");
@@ -82,6 +120,7 @@ int main(void)
 		ssd1306_string_font6x8("http://tinusaur.org");
 		_delay_ms(6000);
 		
+		// ---- Draw bitmap on the screen ----
 		ssd1306_draw_bmp(0,0,128,8, img1_128x64c1);
 		_delay_ms(4000);
 

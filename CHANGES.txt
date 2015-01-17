@@ -1,6 +1,14 @@
 CHANGES
 
 
+2015-01-17 (nb)
+
+Added support for printing decimal numbers.
+
+- Added support for printing decimal numbers with the "num2str" library. New functions: ssd1306_numdec_font6x8, ssd1306_numdecp_font6x8.
+- Minor updates in the text files.
+
+
 2015-01-13 (nb)
 
 Updated README file - added folders and files layout.

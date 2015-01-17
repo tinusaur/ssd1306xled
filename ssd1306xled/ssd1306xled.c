@@ -22,6 +22,8 @@
 #include "ssd1306xled.h"
 #include "font6x8.h"
 
+#include "num2str.h"
+
 // ----------------------------------------------------------------------------
 
 #define DIGITAL_WRITE_HIGH(PORT) PORTB |= (1 << PORT)
@@ -159,6 +161,8 @@ void ssd1306_fillscreen(uint8_t fill)
 	}
 }
 
+// ----------------------------------------------------------------------------
+
 void ssd1306_char_font6x8(char ch) {
 	uint8_t c = ch - 32;
 	ssd1306_send_data_start();
@@ -174,6 +178,24 @@ void ssd1306_string_font6x8(char *s) {
 		ssd1306_char_font6x8(*s++);
 	}
 }
+
+char ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS + 1];
+
+void ssd1306_numdec_font6x8(uint16_t num) {
+	// char buffer[USINT2DECASCII_MAX_DIGITS + 1];
+	ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS] = '\0';   // Terminate the string.
+	uint8_t digits = usint2decascii(num, ssd1306_numdec_buffer);
+	ssd1306_string_font6x8(ssd1306_numdec_buffer + digits);
+}
+
+void ssd1306_numdecp_font6x8(uint16_t num) {
+	// char buffer[USINT2DECASCII_MAX_DIGITS + 1];
+	ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS] = '\0';   // Terminate the string.
+	usint2decascii(num, ssd1306_numdec_buffer);
+	ssd1306_string_font6x8(ssd1306_numdec_buffer);
+}
+
+// ----------------------------------------------------------------------------
 
 void ssd1306_draw_bmp(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, const uint8_t bitmap[])
 {

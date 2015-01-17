@@ -73,7 +73,7 @@ FORMAT = ihex
 TARGET = main
 
 # External Libraries
-EXTLIBS = ../ssd1306xled/ssd1306xled.c ../ssd1306xled/ssd1306xled8x16.c 
+EXTLIBS = ../ssd1306xled/ssd1306xled.c ../ssd1306xled/ssd1306xled8x16.c ../ssd1306xled/num2str.c 
 
 
 # Object files directory
