@@ -67,13 +67,15 @@ int main(void)
 		for (uint8_t i = 0; i < 5; i++)
 		{
 			p = (p >> i);
-			ssd1306_fillscreen(~p);
+			ssd1306_fill(~p);
 			_delay_ms(100);
 		}
 		_delay_ms(1000);
 
+		ssd1306_fillp(0xAA, 0x55);
+
 		// ---- Print numbers on the screen ----
-		ssd1306_fillscreen(0x55);	// Clear screen
+		ssd1306_fillp(0xAA, 0x55);	// Clear screen
 		uint16_t n1 = 0;
 		for (uint8_t j = 0; j < 8; j++) {
 			ssd1306_setpos(0, j);
@@ -83,10 +85,10 @@ int main(void)
 			}
 		}
 		_delay_ms(4000);
-		ssd1306_fillscreen(0x55);	// Clear screen
+		ssd1306_fillp(0xAA, 0x55);	// Clear screen
 		uint16_t n2 = 199;
 		for (uint8_t j = 1; j < 7; j++) {
-			ssd1306_setpos(8, j);
+			ssd1306_setpos(10, j);
 			for (uint8_t i = 0; i < 3; i++) {
 				ssd1306_numdecp_font6x8(n2);
 				ssd1306_string_font6x8(" ");
@@ -94,13 +96,13 @@ int main(void)
 			}
 		}
 		_delay_ms(4000);
-		ssd1306_fillscreen(0x55);	// Clear screen
+		ssd1306_fillp(0xAA, 0x55);	// Clear screen
 		uint16_t n3 = 0;
 		for (uint8_t i = 0; i < 163; i++) {
-			ssd1306_setpos(40, 3);
+			ssd1306_setpos(44, 3);
 			ssd1306_string_font6x8("a=");
 			ssd1306_numdecp_font6x8(n3);
-			ssd1306_setpos(40, 4);
+			ssd1306_setpos(44, 4);
 			ssd1306_string_font6x8("b=");
 			ssd1306_numdecp_font6x8(0xffff - n3);
 			n3 += (n3 * 3) / 33 + 1;
@@ -108,7 +110,7 @@ int main(void)
 		_delay_ms(2000);
 
 		// ---- Print text on the screen ----
-		ssd1306_fillscreen(0x00);	// Clear screen
+		ssd1306_fill(0x00);	// Clear screen
 		ssd1306_setpos(0, 1);
 		ssd1306_string_font6x8("That's the");
 		ssd1306_char_f8x16(64, 0, "Tinusaur");
@@ -116,7 +118,7 @@ int main(void)
 		// ssd1306_string_font6x8("project");
 		ssd1306_setpos(0, 3);
 		ssd1306_string_font6x8("The platform that gives you everything you need for your first microcontroller project");
-		ssd1306_setpos(12, 7);
+		ssd1306_setpos(13, 7);
 		ssd1306_string_font6x8("http://tinusaur.org");
 		_delay_ms(6000);
 		

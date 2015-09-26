@@ -26,6 +26,8 @@
 
 // ----------------------------------------------------------------------------
 
+// Convenience definitions for PORTB
+
 #define DIGITAL_WRITE_HIGH(PORT) PORTB |= (1 << PORT)
 #define DIGITAL_WRITE_LOW(PORT) PORTB &= ~(1 << PORT)
 
@@ -61,17 +63,9 @@ const uint8_t ssd1306_init_sequence [] PROGMEM = {	// Initialization Sequence
 	
 };
 
-// Program:    5248 bytes
+// ----------------------------------------------------------------------------
 
-void ssd1306_init(void)
-{
-	DDRB |= (1 << SSD1306_SDA);	// Set port as output
-	DDRB |= (1 << SSD1306_SCL);	// Set port as output
-	
-	for (uint8_t i = 0; i < sizeof (ssd1306_init_sequence); i++) {
-		ssd1306_send_command(pgm_read_byte(&ssd1306_init_sequence[i]));
-	}
-}
+// These function should become separate library for handling I2C simplified output.
 
 void ssd1306_xfer_start(void)
 {
@@ -136,15 +130,55 @@ void ssd1306_send_data_stop(void)
 	ssd1306_xfer_stop();
 }
 
+/*
+void ssd1306_send_data(uint8_t byte)
+{
+	ssd1306_send_data_start();
+	ssd1306_send_byte(byte);
+	ssd1306_send_data_stop();
+}
+*/
+
+// ----------------------------------------------------------------------------
+
+void ssd1306_init(void)
+{
+	DDRB |= (1 << SSD1306_SDA);	// Set port as output
+	DDRB |= (1 << SSD1306_SCL);	// Set port as output
+	
+	for (uint8_t i = 0; i < sizeof (ssd1306_init_sequence); i++) {
+		ssd1306_send_command(pgm_read_byte(&ssd1306_init_sequence[i]));
+	}
+}
+
 void ssd1306_setpos(uint8_t x, uint8_t y)
 {
 	ssd1306_send_command_start();
 	ssd1306_send_byte(0xb0 + y);
 	ssd1306_send_byte(((x & 0xf0) >> 4) | 0x10); // | 0x10
-	ssd1306_send_byte((x & 0x0f) | 0x01); // | 0x01
+/* TODO: Verify correctness */	ssd1306_send_byte((x & 0x0f)); // | 0x01
 	ssd1306_send_command_stop();
 }
 
+void ssd1306_fillp(uint8_t p1, uint8_t p2)
+{
+	ssd1306_setpos(0, 0);
+	ssd1306_send_data_start();
+	for (uint16_t i = 0; i < 128 * 8 / 2; i++)
+	{
+		ssd1306_send_byte(p1);
+		ssd1306_send_byte(p2);
+	}
+	ssd1306_send_data_stop();
+}
+
+void ssd1306_fill(uint8_t p)
+{
+	ssd1306_fillp(p, p);
+}
+
+/*
+// TODO: Remove this, no longer used.
 void ssd1306_fillscreen(uint8_t fill)
 {
 	for (uint8_t m = 0; m < 8; m++)
@@ -160,6 +194,7 @@ void ssd1306_fillscreen(uint8_t fill)
 		ssd1306_send_data_stop();
 	}
 }
+*/
 
 // ----------------------------------------------------------------------------
 
@@ -182,14 +217,12 @@ void ssd1306_string_font6x8(char *s) {
 char ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS + 1];
 
 void ssd1306_numdec_font6x8(uint16_t num) {
-	// char buffer[USINT2DECASCII_MAX_DIGITS + 1];
 	ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS] = '\0';   // Terminate the string.
 	uint8_t digits = usint2decascii(num, ssd1306_numdec_buffer);
 	ssd1306_string_font6x8(ssd1306_numdec_buffer + digits);
 }
 
 void ssd1306_numdecp_font6x8(uint16_t num) {
-	// char buffer[USINT2DECASCII_MAX_DIGITS + 1];
 	ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS] = '\0';   // Terminate the string.
 	usint2decascii(num, ssd1306_numdec_buffer);
 	ssd1306_string_font6x8(ssd1306_numdec_buffer);

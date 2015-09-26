@@ -32,7 +32,7 @@ SSD1306xLED is written in plain C and does not require any additional libraries 
 
 Official Tinusaur Project website: http://tinusaur.org
 Project SSD1306xLED page: http://tinusaur.org/projects/ssd1306xled/
-Project SSD1306xLED Source code: https://bitbucket.org/tinusaur/ssd1306xled
+Project SSD1306xLED source code: https://bitbucket.org/tinusaur/ssd1306xled
 
 Twitter: https://twitter.com/tinusaur
 Facebook: https://www.facebook.com/tinusaur

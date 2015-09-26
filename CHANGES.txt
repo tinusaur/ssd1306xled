@@ -1,6 +1,17 @@
 CHANGES
 
 
+2015-09-26 (nb)
+
+Added new functions and definitions. Updated testing app. Other small fixes.
+
+- Added macro definitions for new ssd1306_char, ssd1306_string, ssd1306_numdec, ssd1306_numdecp functions.
+- Added new ssd1306_fillp, ssd1306_fill functions.
+- Removed old and unused code.
+- Updated and improved testing app.
+- Fixes in texts and comments.
+
+
 2015-01-17 (nb)
 
 Added support for printing decimal numbers.
