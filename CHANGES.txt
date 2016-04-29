@@ -1,6 +1,15 @@
 CHANGES
 
 
+2016-04-29 (nb)
+
+Updated to the latest NUM2STR. Other small updated and fixes.
+
+- Updated to the latest NUM2STR.
+- Removed old unused code.
+- Updated text files. Fixed typos.
+
+
 2015-09-26 (nb)
 
 Added new functions and definitions. Updated testing app. Other small fixes.

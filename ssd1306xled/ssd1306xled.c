@@ -1,18 +1,20 @@
-/*
+/**
  * SSD1306xLED - Drivers for SSD1306 controlled dot matrix OLED/PLED 128x64 displays
  *
  * @created: 2014-08-12
  * @author: Neven Boyanov
  *
- * Copyright (c) 2015 Neven Boyanov, Tinusaur Team. All Rights Reserved.
+ * This is part of the Tinusaur/SSD1306xLED project.
+ *
+ * Copyright (c) 2016 Neven Boyanov, Tinusaur Team. All Rights Reserved.
  * Distributed as open source software under MIT License, see LICENSE.txt file.
- * Please, as a favour, retain the link http://tinusaur.org to The Tinusaur Project.
+ * Please, as a favor, retain the link http://tinusaur.org to The Tinusaur Project.
  *
  * Source code available at: https://bitbucket.org/tinusaur/ssd1306xled
  *
  */
 
-// ----------------------------------------------------------------------------
+// ============================================================================
 
 #include <stdlib.h>
 #include <avr/io.h>
@@ -177,25 +179,6 @@ void ssd1306_fill(uint8_t p)
 	ssd1306_fillp(p, p);
 }
 
-/*
-// TODO: Remove this, no longer used.
-void ssd1306_fillscreen(uint8_t fill)
-{
-	for (uint8_t m = 0; m < 8; m++)
-	{
-		ssd1306_send_command(0xb0 + m);	// page0 - page1
-		ssd1306_send_command(0x00);		// low column start address
-		ssd1306_send_command(0x10);		// high column start address
-		ssd1306_send_data_start();
-		for (uint8_t n = 0; n < 128; n++)
-		{
-			ssd1306_send_byte(fill);
-		}
-		ssd1306_send_data_stop();
-	}
-}
-*/
-
 // ----------------------------------------------------------------------------
 
 void ssd1306_char_font6x8(char ch) {
@@ -248,4 +231,4 @@ void ssd1306_draw_bmp(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, const uint
 	}
 }
 
-// ----------------------------------------------------------------------------
+// ============================================================================
