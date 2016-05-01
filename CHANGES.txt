@@ -3,6 +3,11 @@ CHANGES
 
 2016-05-01 (nb)
 
+Renamed ssd1306xled_test to ssd1306xled_test1.
+
+
+2016-05-01 (nb)
+
 Fixed Makefile. Other small changes.
 
 - Fixed Makefile.
