@@ -3,6 +3,15 @@ CHANGES
 
 2016-05-01 (nb)
 
+Renamed function names - for clarity, added new. Improved testing script.
+
+- Refactoring: renamed ssd1306_fillp to ssd1306_fill2; ssd1306_char_f8x16 to ssd1306_string_font8x16xy.
+- Added new: ssd1306_fill4 function; ssd1306_clear macro.
+- Improved testing script.
+
+
+2016-05-01 (nb)
+
 Renamed ssd1306xled_test to ssd1306xled_test1.
 
 

@@ -162,21 +162,24 @@ void ssd1306_setpos(uint8_t x, uint8_t y)
 	ssd1306_send_command_stop();
 }
 
-void ssd1306_fillp(uint8_t p1, uint8_t p2)
-{
+void ssd1306_fill4(uint8_t p1, uint8_t p2, uint8_t p3, uint8_t p4) {
 	ssd1306_setpos(0, 0);
 	ssd1306_send_data_start();
-	for (uint16_t i = 0; i < 128 * 8 / 2; i++)
-	{
+	for (uint16_t i = 0; i < 128 * 8 / 4; i++) {
 		ssd1306_send_byte(p1);
 		ssd1306_send_byte(p2);
+		ssd1306_send_byte(p3);
+		ssd1306_send_byte(p4);
 	}
 	ssd1306_send_data_stop();
 }
 
-void ssd1306_fill(uint8_t p)
-{
-	ssd1306_fillp(p, p);
+void ssd1306_fill2(uint8_t p1, uint8_t p2) {
+	ssd1306_fill4(p1, p2, p1, p2);
+}
+
+void ssd1306_fill(uint8_t p) {
+	ssd1306_fill4(p, p, p, p);
 }
 
 // ----------------------------------------------------------------------------

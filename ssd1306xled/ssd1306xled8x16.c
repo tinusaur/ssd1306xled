@@ -50,29 +50,24 @@ void ssd1306_string_font8x16(char *s) {
 
 */
 
-void ssd1306_char_f8x16(uint8_t x, uint8_t y, const char ch[])
-{
-	uint8_t c, j = 0;
-	while (ch[j] != '\0')
-	{
-		c = ch[j] - 32;
-		if (x > 120)
-		{
+void ssd1306_string_font8x16xy(uint8_t x, uint8_t y, const char s[]) {
+	uint8_t ch, j = 0;
+	while (s[j] != '\0') {
+		ch = s[j] - 32;
+		if (x > 120) {
 			x = 0;
 			y++;
 		}
 		ssd1306_setpos(x, y);
 		ssd1306_send_data_start();
-		for (uint8_t i = 0; i < 8; i++)
-		{
-			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[c * 16 + i]));
+		for (uint8_t i = 0; i < 8; i++) {
+			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i]));
 		}
 		ssd1306_send_data_stop();
 		ssd1306_setpos(x, y + 1);
 		ssd1306_send_data_start();
-		for (uint8_t i = 0; i < 8; i++)
-		{
-			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[c * 16 + i + 8]));
+		for (uint8_t i = 0; i < 8; i++) {
+			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i + 8]));
 		}
 		ssd1306_send_data_stop();
 		x += 8;

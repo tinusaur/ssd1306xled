@@ -65,71 +65,75 @@ int main(void) {
 	// ---- Main Loop ----
 
 	for (;;) {
+		
+		ssd1306_clear(); _delay_ms(200);
+
+		// ---- Fill out screen with stripes ----
+		uint8_t p = 0xff;
+		for (uint8_t i = 0; i < 8; i++) {
+			p = (p >> 1);
+			ssd1306_fill(~p);
+		}
+		_delay_ms(400);
 
 		// ---- Fill out screen with patters ----
-		uint8_t p = 0xff;
-		for (uint8_t i = 0; i < 5; i++)
-		{
-			p = (p >> i);
-			ssd1306_fill(~p);
-			_delay_ms(100);
-		}
+		ssd1306_fill(0xAA); _delay_ms(400);
+		ssd1306_fill2(0x55, 0xAA); _delay_ms(400);
+		ssd1306_fill4(0xCC, 0xCC, 0x33, 0x33); _delay_ms(400);
 		_delay_ms(1000);
 
-		ssd1306_fillp(0xAA, 0x55);
-
-		// ---- Print numbers on the screen ----
-		ssd1306_fillp(0xAA, 0x55);	// Clear screen
+		// ---- Print some small numbers on the screen ----
 		uint16_t n1 = 0;
 		for (uint8_t j = 0; j < 8; j++) {
 			ssd1306_setpos(0, j);
 			for (uint8_t i = 0; i < 7; i++) {
-				ssd1306_numdec_font6x8(n1++);
-				ssd1306_string_font6x8(" ");
+				ssd1306_numdec(n1++);
+				ssd1306_string(" ");
 			}
 		}
-		_delay_ms(4000);
-		ssd1306_fillp(0xAA, 0x55);	// Clear screen
+		_delay_ms(1000);
+		
+		// ---- Print some large numbers on the screen ----
+		ssd1306_fill2(0xAA, 0x55);	// Fill screen
 		uint16_t n2 = 199;
 		for (uint8_t j = 1; j < 7; j++) {
 			ssd1306_setpos(10, j);
 			for (uint8_t i = 0; i < 3; i++) {
-				ssd1306_numdecp_font6x8(n2);
-				ssd1306_string_font6x8(" ");
+				ssd1306_numdecp(n2);
+				ssd1306_string(" ");
 				n2 += 567;
 			}
 		}
-		_delay_ms(4000);
-		ssd1306_fillp(0xAA, 0x55);	// Clear screen
+		_delay_ms(1000);
+		
+		// ---- Print some variables on the screen ----
+		ssd1306_fill4(0xC0, 0x030, 0x0C, 0x03); _delay_ms(400);
 		uint16_t n3 = 0;
 		for (uint8_t i = 0; i < 163; i++) {
 			ssd1306_setpos(44, 3);
-			ssd1306_string_font6x8("a=");
-			ssd1306_numdecp_font6x8(n3);
+			ssd1306_string("a=");
+			ssd1306_numdecp(n3);
 			ssd1306_setpos(44, 4);
-			ssd1306_string_font6x8("b=");
-			ssd1306_numdecp_font6x8(0xffff - n3);
+			ssd1306_string("b=");
+			ssd1306_numdecp(0xffff - n3);
 			n3 += (n3 * 3) / 33 + 1;
 		}
-		_delay_ms(2000);
+		_delay_ms(1000);
 
-		// ---- Print text on the screen ----
-		ssd1306_fill(0x00);	// Clear screen
-		ssd1306_setpos(0, 1);
-		ssd1306_string_font6x8("That's the");
-		ssd1306_char_f8x16(64, 0, "Tinusaur");
-		// ssd1306_setpos(43, 3);
-		// ssd1306_string_font6x8("project");
-		ssd1306_setpos(0, 3);
-		ssd1306_string_font6x8("The platform that gives you everything you need for your first microcontroller project");
-		ssd1306_setpos(13, 7);
-		ssd1306_string_font6x8("http://tinusaur.org");
+		// ---- Print some small and large text on the screen ----
+		ssd1306_clear(); _delay_ms(200);
+		ssd1306_setpos(34, 0);	ssd1306_string_font6x8("This is the");
+		ssd1306_string_font8x16xy(10, 1, "Tinusaur");
+		ssd1306_setpos(80, 2);	ssd1306_string_font6x8("project");
+		ssd1306_setpos(0, 4);	ssd1306_string_font6x8("The quick start       platform for your    next awesome project");
+		ssd1306_setpos(8, 7);	ssd1306_string_font6x8("http://tinusaur.org");
 		_delay_ms(6000);
 		
 		// ---- Draw bitmap on the screen ----
 		ssd1306_draw_bmp(0,0,128,8, img1_128x64c1);
 		_delay_ms(4000);
 
+		// ---- Draw bitmap on the screen ----
 		ssd1306_draw_bmp(0,0,128,8, img0_128x64c1);
 		_delay_ms(6000);
 	}
