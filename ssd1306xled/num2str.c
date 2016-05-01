@@ -69,12 +69,12 @@ uint8_t usint2decascii(uint16_t num, char *buffer)
 			}
 		}
 		buffer[pos] = digit + '0';	// Convert to ASCII
-		
+
 	}
-	
+
 	// NOTE: The resulting ascii text should not be terminated with '\0' here.
 	//       The provided buffer maybe part of a larger text in both directions.
-	
+
 	return digits;
 }
 

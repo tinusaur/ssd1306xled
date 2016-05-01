@@ -1,12 +1,14 @@
-/*
+/**
  * SSD1306xLED - Drivers for SSD1306 controlled dot matrix OLED/PLED 128x64 displays
  *
  * @created: 2014-08-08
  * @author: Neven Boyanov
  *
- * Copyright (c) 2015 Neven Boyanov, Tinusaur Team. All Rights Reserved.
+ * This is part of the Tinusaur/SSD1306xLED project.
+ *
+ * Copyright (c) 2016 Neven Boyanov, Tinusaur Team. All Rights Reserved.
  * Distributed as open source software under MIT License, see LICENSE.txt file.
- * Please, as a favour, retain the link http://tinusaur.org to The Tinusaur Project.
+ * Please, as a favor, retain the link http://tinusaur.org to The Tinusaur Project.
  *
  * Source code available at: https://bitbucket.org/tinusaur/ssd1306xled
  *
@@ -14,22 +16,24 @@
 
 // ============================================================================
 
-#define F_CPU 1000000UL
+// #define F_CPU 1000000UL
 
 #include <stdint.h>
 #include <avr/io.h>
 #include <util/delay.h>
 
-// ======================================
+//
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                ATtiny
 //               25/45/85
+//              +----------+   (-)-------
+//      (RST)---+ PB5  Vcc +---(+)-------
+// --[OWOWOD]---+ PB3  PB2 +---[TWI/SCL]-
+//           ---+ PB4  PB1 +---
+// -------(-)---+ GND  PB0 +---[TWI/SDA]-
 //              +----------+
-//        RST --+ PB5  Vcc +---(+)-------
-//            --+ PB3  PB2 +---SCL-------
-//            --+ PB4  PB1 +-- 
-// -------(-)---+ GND  PB0 +---SDA-------
-//              +----------+
-// ======================================
+//
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 // -----(+)--------------->	// Vcc,	Pin 1 on SSD1306 Board
 // -----(-)--------------->	// GND,	Pin 2 on SSD1306 Board
@@ -43,24 +47,24 @@
 #include "../ssd1306xled/ssd1306xled.h"
 #include "../ssd1306xled/ssd1306xled8x16.h"
 
-// ============================================================================
+// ----------------------------------------------------------------------------
 
 #include "img0_128x64c1.h"
 #include "img1_128x64c1.h"
 
-// ============================================================================
+// ----------------------------------------------------------------------------
 
-int main(void)
-{
+int main(void) {
+
 	// ---- Initialization ----
 	
-	// Small delay is necessary if ssd1306_initis the first operation in the application.
+	// Small delay is necessary if ssd1306_init is the first operation in the application.
 	_delay_ms(40);
 	ssd1306_init();
 
 	// ---- Main Loop ----
 
-	while (1) {
+	for (;;) {
 
 		// ---- Fill out screen with patters ----
 		uint8_t p = 0xff;
@@ -130,5 +134,7 @@ int main(void)
 		_delay_ms(6000);
 	}
 	
-	return (0);
+	return 0;
 }
+
+// ============================================================================

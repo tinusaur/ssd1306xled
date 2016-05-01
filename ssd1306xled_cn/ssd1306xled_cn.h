@@ -4,9 +4,9 @@
  * @created: 2014-08-12
  * @author: Neven Boyanov
  *
- * Copyright (c) 2015 Neven Boyanov, Tinusaur Team. All Rights Reserved.
+ * Copyright (c) 2016 Neven Boyanov, Tinusaur Team. All Rights Reserved.
  * Distributed as open source software under MIT License, see LICENSE.txt file.
- * Please, as a favour, retain the link http://tinusaur.org to The Tinusaur Project.
+ * Please, as a favor, retain the link http://tinusaur.org to The Tinusaur Project.
  *
  * Source code available at: https://bitbucket.org/tinusaur/ssd1306xled
  *

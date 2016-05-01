@@ -1,6 +1,14 @@
 CHANGES
 
 
+2016-05-01 (nb)
+
+Fixed Makefile. Other small changes.
+
+- Fixed Makefile.
+- Updated texts, fixed typos.
+
+
 2016-04-29 (nb)
 
 Updated to the latest NUM2STR. Other small updated and fixes.
