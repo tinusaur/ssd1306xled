@@ -49,7 +49,7 @@ int main(void)
 
 	// ---- Main Loop ----
 
-	while (1) {
+	for (;;) {
 
 		uint8_t p = 0xff;
 		for (uint8_t i = 0; i < 4; i++)

@@ -17,6 +17,8 @@
 // ============================================================================
 
 // #define F_CPU 1000000UL
+// NOTE: The F_CPU (CPU frequency) should not be defined in the source code.
+//       It should be defined in either (1) Makefile; or (2) in the IDE. 
 
 #include <stdint.h>
 #include <avr/io.h>
@@ -44,6 +46,8 @@
 
 // ----------------------------------------------------------------------------
 
+#include "cpufreq.h"
+
 #include "../ssd1306xled/ssd1306xled.h"
 #include "../ssd1306xled/ssd1306xled8x16.h"
 
@@ -58,6 +62,18 @@ int main(void) {
 
 	// ---- Initialization ----
 	
+	// ---- CPU Frequency Setup ----
+#if F_CPU == 1000000UL
+#pragma message "F_CPU=1MHZ"
+	CLKPR_SET(CLKPR_1MHZ);
+#elif F_CPU == 8000000UL
+#pragma message "F_CPU=8MHZ"
+	CLKPR_SET(CLKPR_8MHZ);
+#else
+#pragma message "F_CPU=????"
+#error "CPU frequency should be either 1 MHz or 8 MHz"
+#endif
+
 	// Small delay is necessary if ssd1306_init is the first operation in the application.
 	_delay_ms(40);
 	ssd1306_init();
