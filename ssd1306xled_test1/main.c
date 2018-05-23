@@ -1,14 +1,13 @@
 /**
  * SSD1306xLED - Drivers for SSD1306 controlled dot matrix OLED/PLED 128x64 displays
  *
- * @created: 2014-08-08
- * @author: Neven Boyanov
+ * @author Neven Boyanov
  *
  * This is part of the Tinusaur/SSD1306xLED project.
  *
- * Copyright (c) 2016 Neven Boyanov, Tinusaur Team. All Rights Reserved.
+ * Copyright (c) 2017 Neven Boyanov, The Tinusaur Team. All Rights Reserved.
  * Distributed as open source software under MIT License, see LICENSE.txt file.
- * Please, as a favor, retain the link http://tinusaur.org to The Tinusaur Project.
+ * Retain in your source code the link http://tinusaur.org to the Tinusaur project.
  *
  * Source code available at: https://bitbucket.org/tinusaur/ssd1306xled
  *
@@ -24,18 +23,26 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-//
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//                ATtiny
-//               25/45/85
-//              +----------+   (-)-------
-//      (RST)---+ PB5  Vcc +---(+)-------
-// --[OWOWOD]---+ PB3  PB2 +---[TWI/SCL]-
-//           ---+ PB4  PB1 +---
-// -------(-)---+ GND  PB0 +---[TWI/SDA]-
-//              +----------+
-//
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#include "tinyavrlib/cpufreq.h"
+
+#include "ssd1306xled/ssd1306xled.h"
+#include "ssd1306xled/ssd1306xled8x16.h"
+
+#include "img0_128x64c1.h"
+#include "img1_128x64c1.h"
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//                 ATtiny85
+//               +----------+   (-)--GND--
+//       (RST)---+ PB5  Vcc +---(+)--VCC--
+// ---[OWOWOD]---+ PB3  PB2 +---[TWI/SCL]-
+// --------------+ PB4  PB1 +-------------
+// --------(-)---+ GND  PB0 +---[TWI/SDA]-
+//               +----------+
+//              Tinusaur Board
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ----------------------------------------------------------------------------
 
 // -----(+)--------------->	// Vcc,	Pin 1 on SSD1306 Board
 // -----(-)--------------->	// GND,	Pin 2 on SSD1306 Board
@@ -43,18 +50,6 @@
 #define SSD1306_SDA		PB0	// SDA,	Pin 4 on SSD1306 Board
 
 #define SSD1306_SA		0x78	// Slave address
-
-// ----------------------------------------------------------------------------
-
-#include "cpufreq.h"
-
-#include "../ssd1306xled/ssd1306xled.h"
-#include "../ssd1306xled/ssd1306xled8x16.h"
-
-// ----------------------------------------------------------------------------
-
-#include "img0_128x64c1.h"
-#include "img1_128x64c1.h"
 
 // ----------------------------------------------------------------------------
 
@@ -153,7 +148,8 @@ int main(void) {
 		ssd1306_draw_bmp(0,0,128,8, img0_128x64c1);
 		_delay_ms(6000);
 	}
-	
+
+	// Return the mandatory for the "main" function int value. It is "0" for success.
 	return 0;
 }
 
