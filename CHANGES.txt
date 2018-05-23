@@ -7,6 +7,8 @@ Added more comments in the source code.
 
 Remove unused cpufreq.h file. More comments in the source code. Updated copyright and related info.
 
+Improved Makefile. More comments in the source code. Updated copyright and related info.
+
 
 2016-05-01 (nb)
 
