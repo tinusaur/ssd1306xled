@@ -185,11 +185,11 @@ void ssd1306_fill(uint8_t p) {
 // ----------------------------------------------------------------------------
 
 void ssd1306_char_font6x8(char ch) {
-	uint8_t c = ch - 32;
+	uint8_t c = ch - 32; // Convert ASCII code to font data index.
 	ssd1306_send_data_start();
 	for (uint8_t i = 0; i < 6; i++)
 	{
-		ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font6x8[c * 6 + i]));
+		ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font6x8[c * 6 + i]));	// TODO: Optimize this.
 	}
 	ssd1306_send_data_stop();
 }

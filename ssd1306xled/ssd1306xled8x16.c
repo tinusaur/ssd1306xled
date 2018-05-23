@@ -31,7 +31,7 @@
 
 // NOTE: DOES NOT WORK
 void ssd1306_char_font8x16(char ch) {
-	uint8_t c = ch - 32;
+	uint8_t c = ch - 32; // Convert ASCII code to font data index.
 	ssd1306_send_data_start();
 	for (uint8_t i = 0; i < 8; i++)
 	{
@@ -53,7 +53,7 @@ void ssd1306_string_font8x16(char *s) {
 void ssd1306_string_font8x16xy(uint8_t x, uint8_t y, const char s[]) {
 	uint8_t ch, j = 0;
 	while (s[j] != '\0') {
-		ch = s[j] - 32;
+		ch = s[j] - 32; // Convert ASCII code to font data index.
 		if (x > 120) {
 			x = 0;
 			y++;

@@ -1,6 +1,11 @@
 CHANGES
 
 
+2018-05-23 (nb)
+
+Added more comments in the source code.
+
+
 2016-05-01 (nb)
 
 Added support for, and tested to work with, 8 MHz CPU clock. Other small fixes.
