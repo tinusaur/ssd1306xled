@@ -19,6 +19,8 @@ Added new ssd1306xled_nums1 testing script.
 
 Added new ssd1306xled_imgs1 testing script.
 
+Added new ssd1306_byte function that writes one vertical byte on the screen.
+
 
 2018-05-23 (nb)
 
@@ -130,7 +132,7 @@ Changed default pins for display, now PB0=SCL and PB1=SDA. Source code reformatt
 Fixed some warnings, variables renamed. The font16x16/Chinese stuff moved to other folders.
 
 - Font variable ssd1306xled_font8X16 renamed to ssd1306xled_font8x16 for consistency. TODO: rename "ssd1306xled_font8x16" file as well.
-- Fixed ssd1306_draw_bmp prototype: added "const" to bitmap so it wont't generate warning.
+- Fixed ssd1306_draw_bmp prototype: added "const" to bitmap so it won't generate warning.
 - Files related to font 16x16 (Chinese) moved to different folders: font16x16cn.h.
 - Functions and other code related to font 16x16 (Chinese) moved to different folders.
 - Source code reformatting, edited comments.

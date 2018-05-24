@@ -55,6 +55,8 @@ void ssd1306_fill4(uint8_t, uint8_t, uint8_t, uint8_t);
 void ssd1306_fill2(uint8_t p1, uint8_t p2);
 void ssd1306_fill(uint8_t p);
 
+void ssd1306_byte(uint8_t b);
+
 void ssd1306_char_font6x8(char ch);
 void ssd1306_string_font6x8(char *s);
 void ssd1306_numdec_font6x8(uint16_t num);

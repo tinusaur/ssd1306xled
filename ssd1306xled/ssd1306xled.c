@@ -193,6 +193,14 @@ void ssd1306_fill(uint8_t p) {
 
 // ----------------------------------------------------------------------------
 
+void ssd1306_byte(uint8_t b) {
+	ssd1306_send_data_start();
+	ssd1306_send_byte(pgm_read_byte(b));
+	ssd1306_send_data_stop();
+}
+
+// ----------------------------------------------------------------------------
+
 uint8_t *ssd1306xled_font6x8 = NULL;
 // NOTE: If the function below is used then the font should be defined.
 
