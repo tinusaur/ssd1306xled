@@ -17,6 +17,8 @@ Switched to using the num2str from the tinyavrlib.
 
 Added new ssd1306xled_nums1 testing script.
 
+Added new ssd1306xled_imgs1 testing script.
+
 
 2018-05-23 (nb)
 
