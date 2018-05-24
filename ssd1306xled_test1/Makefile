@@ -1,12 +1,11 @@
 #
 # SSD1306xLED - Drivers for SSD1306 controlled dot matrix OLED/PLED 128x64 displays
 #
-# @created 2014-08-08
 # @author Neven Boyanov
 #
 # This is part of the Tinusaur/SSD1306XLED project.
 #
-# Copyright (c) 2017 Neven Boyanov, Tinusaur Team. All Rights Reserved.
+# Copyright (c) 2018 Neven Boyanov, The Tinusaur Team. All Rights Reserved.
 # Distributed as open source software under MIT License, see LICENSE.txt file.
 # Retain in your source code the link http://tinusaur.org to the Tinusaur project.
 #
@@ -33,7 +32,7 @@
 #
 # Hey Emacs, this is a -*- makefile -*-
 #----------------------------------------------------------------------------
-# WinAVR Makefile Template written by Eric B. Weddington, Jörg Wunsch, et al.
+# WinAVR Makefile Template written by Eric B. Weddington, Jorg Wunsch, et al.
 #
 # Released to the Public Domain
 #
@@ -115,7 +114,7 @@ EXTLIBSDIR = ../
 #
 # Source files
 #	Add external libraries source code files here
-EXTLIBSOURCES = ssd1306xled/ssd1306xled.c ssd1306xled/ssd1306xled8x16.c ssd1306xled/num2str.c
+EXTLIBSOURCES = ssd1306xled/ssd1306xled.c ssd1306xled/num2str.c
 #
 # Construct list of external libraries source files:
 #	DO NOT edit this line

@@ -1,11 +1,11 @@
 /**
- * SSD1306xLED - Drivers for SSD1306 controlled dot matrix OLED/PLED 128x64 displays
+ * SSD1306xLED - Library/Driver for the SSD1306 based OLED/PLED 128x64 displays
  *
  * @author Neven Boyanov
  *
  * This is part of the Tinusaur/SSD1306xLED project.
  *
- * Copyright (c) 2017 Neven Boyanov, The Tinusaur Team. All Rights Reserved.
+ * Copyright (c) 2018 Neven Boyanov, The Tinusaur Team. All Rights Reserved.
  * Distributed as open source software under MIT License, see LICENSE.txt file.
  * Retain in your source code the link http://tinusaur.org to the Tinusaur project.
  *
@@ -15,7 +15,7 @@
 
 // ============================================================================
 
-// NOTE: About F_CPU (CPU frequency), it should be defined in either (1) Makefile; or (2) in the IDE.
+// NOTE: About F_CPU - it should be set in either (1) Makefile; or (2) in the IDE.
 
 #include <stdint.h>
 #include <avr/io.h>
@@ -23,8 +23,9 @@
 
 #include "tinyavrlib/cpufreq.h"
 
+#include "ssd1306xled/font6x8.h"
+#include "ssd1306xled/font8x16.h"
 #include "ssd1306xled/ssd1306xled.h"
-#include "ssd1306xled/ssd1306xled8x16.h"
 
 #include "img0_128x64c1.h"
 #include "img1_128x64c1.h"
@@ -54,6 +55,8 @@
 int main(void) {
 
 	// ---- Initialization ----
+	ssd1306xled_font6x8 = ssd1306xled_font6x8data;
+	ssd1306xled_font8x16 = ssd1306xled_font8x16data;
 	
 	// ---- CPU Frequency Setup ----
 #if F_CPU == 1000000UL
@@ -68,7 +71,7 @@ int main(void) {
 #endif
 
 #define STEPS_DELAY_SHORT 200
-#define STEPS_DELAY 400
+#define STEPS_DELAY 600
 #define STEPS_DELAY_LONG 2000
 
 	// Small delay is necessary if ssd1306_init is the first operation in the application.
@@ -77,7 +80,6 @@ int main(void) {
 
 	// ---- Main Loop ----
 	for (;;) {
-		
 		ssd1306_clear(); _delay_ms(STEPS_DELAY_SHORT);
 
 		// ---- Fill out screen with stripes ----
@@ -91,8 +93,8 @@ int main(void) {
 		// ---- Fill out screen with patters ----
 		ssd1306_fill(0xAA); _delay_ms(STEPS_DELAY);	// Horizontal lines
 		ssd1306_fill2(0XFF, 0x00); _delay_ms(STEPS_DELAY);	// Vertical lines
-		ssd1306_fill2(0x55, 0xAA); _delay_ms(STEPS_DELAY);
-		ssd1306_fill4(0xCC, 0xCC, 0x33, 0x33); _delay_ms(STEPS_DELAY);
+		ssd1306_fill2(0x55, 0xAA); _delay_ms(STEPS_DELAY);	// Dots
+		ssd1306_fill4(0xCC, 0xCC, 0x33, 0x33); _delay_ms(STEPS_DELAY);	// Small squares
 		_delay_ms(STEPS_DELAY_LONG);
 
 		// ---- Print some small numbers on the screen ----
@@ -151,8 +153,7 @@ int main(void) {
 		_delay_ms(STEPS_DELAY_LONG); _delay_ms(STEPS_DELAY_LONG);
 	}
 
-	// Return the mandatory for the "main" function int value. It is "0" for success.
-	return 0;
+	return 0;	// Return the mandatory for the "main" function int value. It is "0" for success.
 }
 
 // ============================================================================

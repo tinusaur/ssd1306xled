@@ -23,6 +23,7 @@
 
 #include "tinyavrlib/cpufreq.h"
 
+#include "ssd1306xled/font6x8.h"
 #include "ssd1306xled/ssd1306xled.h"
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -50,6 +51,7 @@
 int main(void) {
 
 	// ---- Initialization ----
+	ssd1306xled_font6x8 = ssd1306xled_font6x8data;
 	
 	// ---- CPU Frequency Setup ----
 #if F_CPU == 1000000UL
@@ -90,7 +92,6 @@ int main(void) {
 		_delay_ms(STEPS_DELAY_LONG);	
 
 		_delay_ms(STEPS_DELAY_LONG); _delay_ms(STEPS_DELAY_LONG); _delay_ms(STEPS_DELAY_LONG); 
-
 	}
 
 	return 0;	// Return the mandatory for the "main" function int value. It is "0" for success.

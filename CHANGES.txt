@@ -7,6 +7,8 @@ Source code reorganizing, reformatting. Removed unused. Some optimizations.
 
 Added new ssd1306xled_text1 module for testing text output.
 
+Improved fonts handling. Moved ssd1306_string_font8x16xy to main library.
+
 
 2018-05-23 (nb)
 
