@@ -11,6 +11,8 @@ Improved fonts handling. Moved ssd1306_string_font8x16xy to main library.
 
 Added new ssd1306xled_text2 testing script.
 
+Removed unused ssd1306xled8x16 files.
+
 
 2018-05-23 (nb)
 
