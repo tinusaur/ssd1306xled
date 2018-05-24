@@ -9,6 +9,8 @@ Added new ssd1306xled_text1 module for testing text output.
 
 Improved fonts handling. Moved ssd1306_string_font8x16xy to main library.
 
+Added new ssd1306xled_text2 testing script.
+
 
 2018-05-23 (nb)
 
