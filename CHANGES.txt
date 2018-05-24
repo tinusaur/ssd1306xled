@@ -13,6 +13,8 @@ Added new ssd1306xled_text2 testing script.
 
 Removed unused ssd1306xled8x16 files.
 
+Switched to using the num2str from the tinyavrlib.
+
 
 2018-05-23 (nb)
 

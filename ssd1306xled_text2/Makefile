@@ -114,7 +114,7 @@ EXTLIBSDIR = ../
 #
 # Source files
 #	Add external libraries source code files here
-EXTLIBSOURCES = ssd1306xled/ssd1306xled.c ssd1306xled/num2str.c
+EXTLIBSOURCES = ssd1306xled/ssd1306xled.c tinyavrlib/num2str.c
 #
 # Construct list of external libraries source files:
 #	DO NOT edit this line

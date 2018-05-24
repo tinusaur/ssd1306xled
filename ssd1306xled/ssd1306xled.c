@@ -21,8 +21,9 @@
 
 #include <avr/pgmspace.h>
 
+#include "tinyavrlib/num2str.h"
+
 #include "ssd1306xled.h"
-#include "num2str.h"
 
 // ----------------------------------------------------------------------------
 
