@@ -21,6 +21,8 @@ Added new ssd1306xled_imgs1 testing script.
 
 Added new ssd1306_byte function that writes one vertical byte on the screen.
 
+Updated ssd1306xled_test1 script to show simple tests.
+
 
 2018-05-23 (nb)
 
