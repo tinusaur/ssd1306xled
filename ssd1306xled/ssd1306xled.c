@@ -28,15 +28,6 @@
 
 // ----------------------------------------------------------------------------
 
-// Convenience definitions for PORTB
-
-#define DIGITAL_WRITE_HIGH(PORT) PORTB |= (1 << PORT)
-#define DIGITAL_WRITE_LOW(PORT) PORTB &= ~(1 << PORT)
-
-// ----------------------------------------------------------------------------
-
-// Some code based on "IIC_wtihout_ACK" by http://www.14blog.com/archives/1358
-
 const uint8_t ssd1306_init_sequence [] PROGMEM = {	// Initialization Sequence
 	0xAE,			// Display OFF (sleep mode)
 	0x20, 0b00,		// Set Memory Addressing Mode
@@ -62,12 +53,31 @@ const uint8_t ssd1306_init_sequence [] PROGMEM = {	// Initialization Sequence
 	0x20,			// 0x20,0.77xVcc
 	0x8D, 0x14,		// Set DC-DC enable
 	0xAF			// Display ON in normal mode
-	
 };
+
+// ============================================================================
+
+// TODO: These functions could become separate library for handling I2C simplified output.
+// IDEA: SI2CW - Simplified I2C Writer
+
+// Some code based on "IIC_wtihout_ACK" by http://www.14blog.com/archives/1358
+
+// These functions are used only internally by the library
+
+// Convenience definitions for PORTB
+#define DIGITAL_WRITE_HIGH(PORT) PORTB |= (1 << PORT)
+#define DIGITAL_WRITE_LOW(PORT) PORTB &= ~(1 << PORT)
 
 // ----------------------------------------------------------------------------
 
-// These function should become separate library for handling I2C simplified output.
+void ssd1306_xfer_start(void);
+void ssd1306_xfer_stop(void);
+void ssd1306_send_byte(uint8_t byte);
+void ssd1306_send_command(uint8_t command);
+void ssd1306_send_data_start(void);
+void ssd1306_send_data_stop(void);
+
+// ----------------------------------------------------------------------------
 
 void ssd1306_xfer_start(void)
 {
@@ -141,7 +151,7 @@ void ssd1306_send_data(uint8_t byte)
 }
 */
 
-// ----------------------------------------------------------------------------
+// ============================================================================
 
 void ssd1306_init(void)
 {

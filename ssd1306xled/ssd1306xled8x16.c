@@ -1,14 +1,13 @@
 /**
  * SSD1306xLED - Drivers for SSD1306 controlled dot matrix OLED/PLED 128x64 displays
  *
- * @created: 2014-08-12
- * @author: Neven Boyanov
+ * @author Neven Boyanov
  *
  * This is part of the Tinusaur/SSD1306xLED project.
  *
- * Copyright (c) 2016 Neven Boyanov, Tinusaur Team. All Rights Reserved.
+ * Copyright (c) 2017 Neven Boyanov, The Tinusaur Team. All Rights Reserved.
  * Distributed as open source software under MIT License, see LICENSE.txt file.
- * Please, as a favor, retain the link http://tinusaur.org to The Tinusaur Project.
+ * Retain in your source code the link http://tinusaur.org to the Tinusaur project.
  *
  * Source code available at: https://bitbucket.org/tinusaur/ssd1306xled
  *
@@ -27,28 +26,17 @@
 
 // ----------------------------------------------------------------------------
 
-/*
+// TODO: Merge this code with the main library
 
-// NOTE: DOES NOT WORK
-void ssd1306_char_font8x16(char ch) {
-	uint8_t c = ch - 32; // Convert ASCII code to font data index.
-	ssd1306_send_data_start();
-	for (uint8_t i = 0; i < 8; i++)
-	{
-		ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[c * 16 + i]));
-		ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[c * 16 + i + 8]));
-	}
-	ssd1306_send_data_stop();
-}
+// NOTE: These definitions are copy from the main library.
+void ssd1306_xfer_start(void);
+void ssd1306_xfer_stop(void);
+void ssd1306_send_byte(uint8_t byte);
+void ssd1306_send_command(uint8_t command);
+void ssd1306_send_data_start(void);
+void ssd1306_send_data_stop(void);
 
-// NOTE: DOES NOT WORK
-void ssd1306_string_font8x16(char *s) {
-	while (*s) {
-		ssd1306_char_font8x16(*s++);
-	}
-}
-
-*/
+// ----------------------------------------------------------------------------
 
 void ssd1306_string_font8x16xy(uint8_t x, uint8_t y, const char s[]) {
 	uint8_t ch, j = 0;
