@@ -141,15 +141,6 @@ void ssd1306_send_data_stop(void)
 	ssd1306_xfer_stop();
 }
 
-/*
-void ssd1306_send_data(uint8_t byte)
-{
-	ssd1306_send_data_start();
-	ssd1306_send_byte(byte);
-	ssd1306_send_data_stop();
-}
-*/
-
 // ============================================================================
 
 void ssd1306_init(void)
@@ -195,7 +186,7 @@ void ssd1306_fill(uint8_t p) {
 
 void ssd1306_byte(uint8_t b) {
 	ssd1306_send_data_start();
-	ssd1306_send_byte(pgm_read_byte(b));
+	ssd1306_send_byte(b);
 	ssd1306_send_data_stop();
 }
 
