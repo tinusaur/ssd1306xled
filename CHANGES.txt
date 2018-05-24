@@ -5,6 +5,8 @@ CHANGES
 
 Source code reorganizing, reformatting. Removed unused. Some optimizations.
 
+Added new ssd1306xled_text1 module for testing text output.
+
 
 2018-05-23 (nb)
 
