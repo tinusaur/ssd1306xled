@@ -3,6 +3,8 @@ CHANGES
 
 2018-12-26 (nb)
 
+Removed unused modules - local copy of "num2str", "ssd1306xled_cn" and "ssd1306xled_test_cn".
+
 Source code maintenance. Changes in the texts.
 
 

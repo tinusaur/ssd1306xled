@@ -1,5 +1,13 @@
 TODO
 
+2018-12-26 (nb)
+
+- Update makefile to the newer style, like it is in the other projects.	(DONE)
+- Use the NUM2STR library from TinyAVRLib project.	(DONE)
+- Remove the "_cn" modules - no longer used and developed.	(DONE)
+
+
+2016, 2017
 
 - Print decimal numbers.
 - Short vertical line.
