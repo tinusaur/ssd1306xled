@@ -60,8 +60,7 @@ const uint8_t ssd1306_init_sequence [] PROGMEM = {	// Initialization Sequence
 
 // Some code based on "IIC_wtihout_ACK" by http://www.14blog.com/archives/1358
 
-// These functions are used only internally by the library
-
+// These definitions are used only internally by the library
 // Convenience definitions for PORTB
 #define DIGITAL_WRITE_HIGH(PORT) PORTB |= (1 << PORT)
 #define DIGITAL_WRITE_LOW(PORT) PORTB &= ~(1 << PORT)

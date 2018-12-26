@@ -18,17 +18,11 @@
 
 // ============================================================================
 
-// -----(+)--------------->	// Vcc,	Pin 1 on SSD1306 Board
-// -----(-)--------------->	// GND,	Pin 2 on SSD1306 Board
-#ifndef SSD1306_SCL
-#define SSD1306_SCL		PB2	// SCL,	Pin 3 on SSD1306 Board
-#endif
-#ifndef SSD1306_SDA
-#define SSD1306_SDA		PB0	// SDA,	Pin 4 on SSD1306 Board
-#endif
-#ifndef SSD1306_SA
-#define SSD1306_SA		0x78	// Slave address
-#endif
+// -----(+)-------------------->-----> [Vcc]	Pin 1 on the SSD1306 display board
+// -----(-)-------------------->-----> [GND]	Pin 2 on the SSD1306 display board
+#define SSD1306_SCL		PB2   // ----> [SCL]	Pin 3 on the SSD1306 display board
+#define SSD1306_SDA		PB0   // ----> [SDA]	Pin 4 on the SSD1306 display board
+#define SSD1306_SA		0x78  // Display IC2 slave address, default 0x78
 
 // ----------------------------------------------------------------------------
 

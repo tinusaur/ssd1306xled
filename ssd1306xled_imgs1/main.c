@@ -38,23 +38,16 @@
 //               +----------+
 //              Tinusaur Board
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// NOTE: If you want to reassign the SCL and SDA pins and the I2C address
+// do that in the library source code and recompile it so it will take affect.
 
 // ----------------------------------------------------------------------------
 
-// -----(+)--------------->	// Vcc,	Pin 1 on SSD1306 Board
-// -----(-)--------------->	// GND,	Pin 2 on SSD1306 Board
-#define SSD1306_SCL		PB2	// SCL,	Pin 3 on SSD1306 Board
-#define SSD1306_SDA		PB0	// SDA,	Pin 4 on SSD1306 Board
-
-#define SSD1306_SA		0x78	// Slave address
-
-// ----------------------------------------------------------------------------
+#define TESTING_DELAY 500
 
 int main(void) {
 
-	// ---- Initialization ----
-	
-	// ---- CPU Frequency Setup ----
+// ---- CPU Frequency Setup ----
 #if F_CPU == 1000000UL
 #pragma message "F_CPU=1MHZ"
 	CLKPR_SET(CLKPR_1MHZ);
@@ -66,9 +59,7 @@ int main(void) {
 #error "CPU frequency should be either 1 MHz or 8 MHz"
 #endif
 
-#define STEPS_DELAY_SHORT 200
-#define STEPS_DELAY 600
-#define STEPS_DELAY_LONG 2000
+	// ---- Initialization ----
 
 	// Small delay is necessary if ssd1306_init is the first operation in the application.
 	_delay_ms(40);
@@ -76,17 +67,15 @@ int main(void) {
 
 	// ---- Main Loop ----
 	for (;;) {
-		ssd1306_clear(); _delay_ms(STEPS_DELAY_SHORT);
+		ssd1306_clear();
 
 		// ---- Draw bitmap on the screen ----
-		ssd1306_draw_bmp(0,0,128,8, img0s128x64c1);
-		_delay_ms(STEPS_DELAY_LONG); _delay_ms(STEPS_DELAY_LONG);
+		ssd1306_draw_bmp(0, 0, 128, 8, img0s128x64c1);
+		_delay_ms(TESTING_DELAY << 2);
 
 		// ---- Draw bitmap on the screen ----
-		ssd1306_draw_bmp(0,0,128,8, img1s128x64c1);
-		_delay_ms(STEPS_DELAY_LONG); _delay_ms(STEPS_DELAY_LONG);
-
-		_delay_ms(STEPS_DELAY_LONG); _delay_ms(STEPS_DELAY_LONG);
+		ssd1306_draw_bmp(0, 0, 128, 8, img1s128x64c1);
+		_delay_ms(TESTING_DELAY << 4);
 	}
 
 	return 0; // Return the mandatory result value. It is "0" for success.

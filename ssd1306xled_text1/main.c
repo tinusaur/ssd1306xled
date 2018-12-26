@@ -36,24 +36,16 @@
 //               +----------+
 //              Tinusaur Board
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// NOTE: If you want to reassign the SCL and SDA pins and the I2C address
+// do that in the library source code and recompile it so it will take affect.
 
 // ----------------------------------------------------------------------------
 
-// -----(+)--------------->	// Vcc,	Pin 1 on SSD1306 Board
-// -----(-)--------------->	// GND,	Pin 2 on SSD1306 Board
-#define SSD1306_SCL		PB2	// SCL,	Pin 3 on SSD1306 Board
-#define SSD1306_SDA		PB0	// SDA,	Pin 4 on SSD1306 Board
-
-#define SSD1306_SA		0x78	// Slave address
-
-// ----------------------------------------------------------------------------
+#define TESTING_DELAY 500
 
 int main(void) {
 
-	// ---- Initialization ----
-	ssd1306xled_font6x8 = ssd1306xled_font6x8data;
-	
-	// ---- CPU Frequency Setup ----
+// ---- CPU Frequency Setup ----
 #if F_CPU == 1000000UL
 #pragma message "F_CPU=1MHZ"
 	CLKPR_SET(CLKPR_1MHZ);
@@ -65,9 +57,8 @@ int main(void) {
 #error "CPU frequency should be either 1 MHz or 8 MHz"
 #endif
 
-#define STEPS_DELAY_SHORT 200
-#define STEPS_DELAY 600
-#define STEPS_DELAY_LONG 1000
+	// ---- Initialization ----
+	ssd1306xled_font6x8 = ssd1306xled_font6x8data;
 
 	// Small delay is necessary if ssd1306_init is the first operation in the application.
 	_delay_ms(40);
@@ -75,23 +66,26 @@ int main(void) {
 
 	// ---- Main Loop ----
 	for (;;) {
-		ssd1306_clear(); _delay_ms(STEPS_DELAY_SHORT);
+		ssd1306_clear();
 
 		// ---- Fill out screen with patters ----
-		ssd1306_fill2(0x80, 0x00); _delay_ms(STEPS_DELAY);
-		_delay_ms(STEPS_DELAY_LONG);
-		
+		ssd1306_fill2(0x80, 0x00);
+		_delay_ms(TESTING_DELAY << 2);
+
 		// NOTE: Screen width - 128, that is 21 symbols per row.
 
 		// ---- Print some small and large text on the screen ----
-		ssd1306_setpos(0, 0); ssd1306_string_font6x8("Hello, World! Testing");
-		ssd1306_setpos(7, 1); ssd1306_string_font6x8("SSD1306xLED Library");
-		ssd1306_setpos(0, 2); ssd1306_string_font6x8("!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[5]^_`abcdefghijklmnopqrstuvwxyz~");
-		ssd1306_setpos(0, 6); ssd1306_string_font6x8(" This is the TINUSUR ");
-		ssd1306_setpos(7, 7); ssd1306_string_font6x8("http://tinusaur.org");
-		_delay_ms(STEPS_DELAY_LONG);	
-
-		_delay_ms(STEPS_DELAY_LONG); _delay_ms(STEPS_DELAY_LONG); _delay_ms(STEPS_DELAY_LONG); 
+		ssd1306_setpos(0, 0);
+		ssd1306_string_font6x8("Hello, World! Testing");
+		ssd1306_setpos(7, 1);
+		ssd1306_string_font6x8("SSD1306xLED Library");
+		ssd1306_setpos(0, 2);
+		ssd1306_string_font6x8("!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[5]^_`abcdefghijklmnopqrstuvwxyz~");
+		ssd1306_setpos(0, 6);
+		ssd1306_string_font6x8(" This is the TINUSUR ");
+		ssd1306_setpos(7, 7);
+		ssd1306_string_font6x8("http://tinusaur.org");
+		_delay_ms(TESTING_DELAY << 4);
 	}
 
 	return 0; // Return the mandatory result value. It is "0" for success.

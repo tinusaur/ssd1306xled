@@ -2,6 +2,9 @@ TODO
 
 2018-12-26 (nb)
 
+- Separate SSD1306xLEDfx library for the more complex functions such as drawings.
+- Separate SSD1306xLEDtx library for the more complex functions such as printing chars and strings.
+- Extract the I2C function as a separate library.
 - Update makefile to the newer style, like it is in the other projects.	(DONE)
 - Use the NUM2STR library from TinyAVRLib project.	(DONE)
 - Remove the "_cn" modules - no longer used and developed.	(DONE)
@@ -9,8 +12,7 @@ TODO
 
 2016, 2017
 
-- Print decimal numbers.
+- Print decimal numbers.	(DONE)
 - Short vertical line.
-
 - Implement power saving mode.
 

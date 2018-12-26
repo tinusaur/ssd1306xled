@@ -37,25 +37,16 @@
 //               +----------+
 //              Tinusaur Board
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// NOTE: If you want to reassign the SCL and SDA pins and the I2C address
+// do that in the library source code and recompile it so it will take affect.
 
 // ----------------------------------------------------------------------------
 
-// -----(+)--------------->	// Vcc,	Pin 1 on SSD1306 Board
-// -----(-)--------------->	// GND,	Pin 2 on SSD1306 Board
-#define SSD1306_SCL		PB2	// SCL,	Pin 3 on SSD1306 Board
-#define SSD1306_SDA		PB0	// SDA,	Pin 4 on SSD1306 Board
-
-#define SSD1306_SA		0x78	// Slave address
-
-// ----------------------------------------------------------------------------
+#define TESTING_DELAY 500
 
 int main(void) {
 
-	// ---- Initialization ----
-	ssd1306xled_font6x8 = ssd1306xled_font6x8data;
-	ssd1306xled_font8x16 = ssd1306xled_font8x16data;
-	
-	// ---- CPU Frequency Setup ----
+// ---- CPU Frequency Setup ----
 #if F_CPU == 1000000UL
 #pragma message "F_CPU=1MHZ"
 	CLKPR_SET(CLKPR_1MHZ);
@@ -67,9 +58,9 @@ int main(void) {
 #error "CPU frequency should be either 1 MHz or 8 MHz"
 #endif
 
-#define STEPS_DELAY_SHORT 200
-#define STEPS_DELAY 600
-#define STEPS_DELAY_LONG 2000
+	// ---- Initialization ----
+	ssd1306xled_font6x8 = ssd1306xled_font6x8data;
+	ssd1306xled_font8x16 = ssd1306xled_font8x16data;
 
 	// Small delay is necessary if ssd1306_init is the first operation in the application.
 	_delay_ms(40);
@@ -77,15 +68,17 @@ int main(void) {
 
 	// ---- Main Loop ----
 	for (;;) {
-		ssd1306_clear(); _delay_ms(STEPS_DELAY_SHORT);
+		ssd1306_clear();
 
 		// ---- Fill out screen with patters ----
-		ssd1306_fill2(0x55, 0xAA); _delay_ms(STEPS_DELAY);	// Dots
-		
+		ssd1306_fill2(0x55, 0xAA);	// Dots
+		_delay_ms(TESTING_DELAY);
+
 		// NOTE: Screen width - 128, that is 21 symbols per row.
 
 		// ---- Print some text on the screen ----
-		ssd1306_setpos(4, 1); ssd1306_string_font6x8(" Numbers in a table ");
+		ssd1306_setpos(4, 1);
+		ssd1306_string_font6x8(" Numbers in a table ");
 
 		// ---- Print some small numbers on the screen ----
 		uint16_t n1 = 0;
@@ -96,8 +89,8 @@ int main(void) {
 				ssd1306_string(" ");
 			}
 		}
-		_delay_ms(STEPS_DELAY_LONG);
-		
+		_delay_ms(TESTING_DELAY << 2);
+
 		// ---- Print some large numbers on the screen ----
 		uint16_t n2 = 199;
 		for (uint8_t j = 3; j < 7; j++) {
@@ -108,11 +101,13 @@ int main(void) {
 				n2 += 567;
 			}
 		}
-		_delay_ms(STEPS_DELAY_LONG);
-		
+		_delay_ms(TESTING_DELAY << 2);
+
 		// ---- Print some variables on the screen ----
-		ssd1306_setpos(18, 3); ssd1306_string("----------------");
-		ssd1306_setpos(18, 6); ssd1306_string("----------------");
+		ssd1306_setpos(18, 3);
+		ssd1306_string("----------------");
+		ssd1306_setpos(18, 6);
+		ssd1306_string("----------------");
 		uint16_t n3 = 0;
 		for (uint8_t i = 0; i < 163; i++) {
 			ssd1306_setpos(18, 4);
@@ -125,9 +120,7 @@ int main(void) {
 			ssd1306_string(" -> ");
 			n3 += (n3 * 3) / 33 + 1;
 		}
-		_delay_ms(STEPS_DELAY_LONG);
-
-		_delay_ms(STEPS_DELAY_LONG); _delay_ms(STEPS_DELAY_LONG); _delay_ms(STEPS_DELAY_LONG);
+		_delay_ms(TESTING_DELAY << 4);
 	}
 
 	return 0; // Return the mandatory result value. It is "0" for success.
