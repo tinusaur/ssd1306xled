@@ -18,10 +18,7 @@
 
 // ============================================================================
 
-#define ssd1306_char(c) ssd1306_char_font6x8(c)
-#define ssd1306_string(s) ssd1306_string_font6x8(s)
-#define ssd1306_numdec(n) ssd1306_numdec_font6x8(n)
-#define ssd1306_numdecp(n) ssd1306_numdecp_font6x8(n)
+#define ssd1306_numdec(n) ssd1306tx_numdec(n)
 
 // ----------------------------------------------------------------------------
 
@@ -30,14 +27,15 @@ extern uint8_t *ssd1306xled_font8x16;
 
 // ----------------------------------------------------------------------------
 
-void ssd1306tx_init(void);
+void ssd1306tx_init(const uint8_t *fron_src, uint8_t char_base);
 
-void ssd1306_char_font6x8(char ch);
-void ssd1306_string_font6x8(char *s);
-void ssd1306_numdec_font6x8(uint16_t num);
-void ssd1306_numdecp_font6x8(uint16_t num);
+void ssd1306tx_char(char ch);
+void ssd1306tx_string(char *s);
 
-void ssd1306_string_font8x16xy(uint8_t x, uint8_t y, const char s[]);
+void ssd1306tx_numdec(uint16_t num);
+void ssd1306tx_numdecp(uint16_t num);
+
+void ssd1306tx_stringxy(const uint8_t *fron_src, uint8_t x, uint8_t y, const char s[]);
 
 // ============================================================================
 

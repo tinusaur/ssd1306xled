@@ -3,6 +3,8 @@ CHANGES
 
 2018-12-26 (nb)
 
+Functions from the ssd1306xledtx module now have the ssd1306tx_ prefix, names changed a little. Implemented ssd1306tx_init function.
+
 Moved to a new ssd1306xledtx module, function to work with images.
 
 Moved to a new ssd1306xledfx module, function to work with text.

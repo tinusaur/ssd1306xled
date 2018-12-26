@@ -26,50 +26,58 @@
 
 // ============================================================================
 
-void ssd1306tx_init(void) {
+extern void ssd1306_send_byte(uint8_t byte);
+extern void ssd1306_send_data_start(void);
+extern void ssd1306_send_data_stop(void);
 
+// ----------------------------------------------------------------------------
+
+const uint8_t *ssd1306tx_font_src;
+uint8_t ssd1306tx_font_char_base;
+
+// ----------------------------------------------------------------------------
+
+void ssd1306tx_init(const uint8_t *fron_src, uint8_t char_base) {
+	ssd1306tx_font_src = fron_src;
+	ssd1306tx_font_char_base = char_base;
 }
 
 // ----------------------------------------------------------------------------
 
-uint8_t *ssd1306xled_font6x8 = NULL;
-// NOTE: If the function below is used then the font should be defined.
-
-void ssd1306_char_font6x8(char ch) {
+void ssd1306tx_char(char ch) {
 	uint8_t c = ch - 32; // Convert ASCII code to font data index.
 	ssd1306_send_data_start();
 	for (uint8_t i = 0; i < 6; i++) {
-		ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font6x8[c * 6 + i]));	// TODO: Optimize this.
+		ssd1306_send_byte(pgm_read_byte(&ssd1306tx_font_src[c * 6 + i]));	// TODO: Optimize this.
 	}
 	ssd1306_send_data_stop();
 }
 
-void ssd1306_string_font6x8(char *s) {
+void ssd1306tx_string(char *s) {
 	while (*s) {
-		ssd1306_char_font6x8(*s++);
+		ssd1306tx_char(*s++);
 	}
-}
-
-char ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS + 1];
-
-void ssd1306_numdec_font6x8(uint16_t num) {
-	ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS] = '\0';   // Terminate the string.
-	uint8_t digits = usint2decascii(num, ssd1306_numdec_buffer);
-	ssd1306_string_font6x8(ssd1306_numdec_buffer + digits);
-}
-
-void ssd1306_numdecp_font6x8(uint16_t num) {
-	ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS] = '\0';   // Terminate the string.
-	usint2decascii(num, ssd1306_numdec_buffer);
-	ssd1306_string_font6x8(ssd1306_numdec_buffer);
 }
 
 // ----------------------------------------------------------------------------
 
-// NOTE: If the function below is used then the font should be defined.
-uint8_t *ssd1306xled_font8x16 = NULL;
+char ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS + 1];
 
-void ssd1306_string_font8x16xy(uint8_t x, uint8_t y, const char s[]) {
+void ssd1306tx_numdec(uint16_t num) {
+	ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS] = '\0';   // Terminate the string.
+	uint8_t digits = usint2decascii(num, ssd1306_numdec_buffer);
+	ssd1306tx_string(ssd1306_numdec_buffer + digits);
+}
+
+void ssd1306tx_numdecp(uint16_t num) {
+	ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS] = '\0';   // Terminate the string.
+	usint2decascii(num, ssd1306_numdec_buffer);
+	ssd1306tx_string(ssd1306_numdec_buffer);
+}
+
+// ----------------------------------------------------------------------------
+
+void ssd1306tx_stringxy(const uint8_t *fron_src, uint8_t x, uint8_t y, const char s[]) {
 	uint8_t ch, j = 0;
 	while (s[j] != '\0') {
 		ch = s[j] - 32; // Convert ASCII code to font data index.
@@ -80,13 +88,13 @@ void ssd1306_string_font8x16xy(uint8_t x, uint8_t y, const char s[]) {
 		ssd1306_setpos(x, y);
 		ssd1306_send_data_start();
 		for (uint8_t i = 0; i < 8; i++) {
-			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i]));
+			ssd1306_send_byte(pgm_read_byte(&fron_src[ch * 16 + i]));
 		}
 		ssd1306_send_data_stop();
 		ssd1306_setpos(x, y + 1);
 		ssd1306_send_data_start();
 		for (uint8_t i = 0; i < 8; i++) {
-			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i + 8]));
+			ssd1306_send_byte(pgm_read_byte(&fron_src[ch * 16 + i + 8]));
 		}
 		ssd1306_send_data_stop();
 		x += 8;

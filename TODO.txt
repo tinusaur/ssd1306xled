@@ -3,7 +3,7 @@ TODO
 2018-12-26 (nb)
 
 - Move font .h files to the app space, i.e. not in the library folder.
-- Separate SSD1306xLEDfx library for the more complex functions such as drawings.
+- Separate SSD1306xLEDfx library for the more complex functions such as drawings.	(DONE)
 - Separate SSD1306xLEDtx library for the more complex functions such as printing chars and strings.	(DONE)
 - Extract the I2C function as a separate library.
 - Update makefile to the newer style, like it is in the other projects.	(DONE)
@@ -15,5 +15,5 @@ TODO
 
 - Print decimal numbers.	(DONE)
 - Short vertical line.
-- Implement power saving mode.
+- Implement power saving modes for the display.
 

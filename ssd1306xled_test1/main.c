@@ -57,7 +57,6 @@ int main(void) {
 #endif
 
 	// ---- Initialization ----
-
 	_delay_ms(40);	// Small delay might be necessary if ssd1306_init is the first operation in the application.
 	ssd1306_init();
 

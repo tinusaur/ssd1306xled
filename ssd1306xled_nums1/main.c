@@ -60,12 +60,9 @@ int main(void) {
 #endif
 
 	// ---- Initialization ----
-	ssd1306xled_font6x8 = ssd1306xled_font6x8data;
-	// ssd1306xled_font8x16 = ssd1306xled_font8x16data;
-
-	// Small delay is necessary if ssd1306_init is the first operation in the application.
-	_delay_ms(40);
+	_delay_ms(40);	// Small delay might be necessary if ssd1306_init is the first operation in the application.
 	ssd1306_init();
+	ssd1306tx_init(ssd1306xled_font6x8data, ' ');
 
 	// ---- Main Loop ----
 	for (;;) {
@@ -79,15 +76,15 @@ int main(void) {
 
 		// ---- Print some text on the screen ----
 		ssd1306_setpos(4, 1);
-		ssd1306_string_font6x8(" Numbers in a table ");
+		ssd1306tx_string(" Numbers in a table ");
 
 		// ---- Print some small numbers on the screen ----
 		uint16_t n1 = 0;
 		for (uint8_t j = 3; j < 7; j++) {
 			ssd1306_setpos(12, j);
 			for (uint8_t i = 0; i < 6; i++) {
-				ssd1306_numdec(n1++);
-				ssd1306_string(" ");
+				ssd1306tx_numdec(n1++);
+				ssd1306tx_string(" ");
 			}
 		}
 		_delay_ms(TESTING_DELAY << 2);
@@ -97,8 +94,8 @@ int main(void) {
 		for (uint8_t j = 3; j < 7; j++) {
 			ssd1306_setpos(12, j);
 			for (uint8_t i = 0; i < 3; i++) {
-				ssd1306_numdecp(n2);
-				ssd1306_string(" ");
+				ssd1306tx_numdecp(n2);
+				ssd1306tx_string(" ");
 				n2 += 567;
 			}
 		}
@@ -106,19 +103,19 @@ int main(void) {
 
 		// ---- Print some variables on the screen ----
 		ssd1306_setpos(18, 3);
-		ssd1306_string("----------------");
+		ssd1306tx_string("----------------");
 		ssd1306_setpos(18, 6);
-		ssd1306_string("----------------");
+		ssd1306tx_string("----------------");
 		uint16_t n3 = 0;
 		for (uint8_t i = 0; i < 163; i++) {
 			ssd1306_setpos(18, 4);
-			ssd1306_string("a = ");
-			ssd1306_numdecp(n3);
-			ssd1306_string(" -> ");
+			ssd1306tx_string("a = ");
+			ssd1306tx_numdecp(n3);
+			ssd1306tx_string(" -> ");
 			ssd1306_setpos(18, 5);
-			ssd1306_string("b = ");
-			ssd1306_numdecp(0xffff - n3);
-			ssd1306_string(" -> ");
+			ssd1306tx_string("b = ");
+			ssd1306tx_numdecp(0xffff - n3);
+			ssd1306tx_string(" -> ");
 			n3 += (n3 * 3) / 33 + 1;
 		}
 		_delay_ms(TESTING_DELAY << 4);

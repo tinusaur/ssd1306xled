@@ -59,11 +59,9 @@ int main(void) {
 #endif
 
 	// ---- Initialization ----
-	ssd1306xled_font6x8 = ssd1306xled_font6x8data;
-
-	// Small delay is necessary if ssd1306_init is the first operation in the application.
-	_delay_ms(40);
+	_delay_ms(40);	// Small delay might be necessary if ssd1306_init is the first operation in the application.
 	ssd1306_init();
+	ssd1306tx_init(ssd1306xled_font6x8data, ' ');
 
 	// ---- Main Loop ----
 	for (;;) {
@@ -77,15 +75,15 @@ int main(void) {
 
 		// ---- Print some text on the screen ----
 		ssd1306_setpos(0, 0);
-		ssd1306_string_font6x8("Hello, World! Testing");
+		ssd1306tx_string("Hello, World! Testing");
 		ssd1306_setpos(7, 1);
-		ssd1306_string_font6x8("SSD1306xLED Library");
+		ssd1306tx_string("SSD1306xLED Library");
 		ssd1306_setpos(0, 2);
-		ssd1306_string_font6x8("!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[5]^_`abcdefghijklmnopqrstuvwxyz~");
+		ssd1306tx_string("!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[5]^_`abcdefghijklmnopqrstuvwxyz~");
 		ssd1306_setpos(0, 6);
-		ssd1306_string_font6x8(" This is the TINUSUR ");
+		ssd1306tx_string(" This is the TINUSUR ");
 		ssd1306_setpos(7, 7);
-		ssd1306_string_font6x8("http://tinusaur.org");
+		ssd1306tx_string("http://tinusaur.org");
 		_delay_ms(TESTING_DELAY << 4);
 	}
 
