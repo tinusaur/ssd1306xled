@@ -24,6 +24,7 @@
 #include "tinyavrlib/cpufreq.h"
 
 #include "ssd1306xled/ssd1306xled.h"
+#include "ssd1306xled/ssd1306xledfx.h"
 
 #include "img0s128x64c1.h"
 #include "img1s128x64c1.h"

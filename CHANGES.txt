@@ -3,7 +3,9 @@ CHANGES
 
 2018-12-26 (nb)
 
-Moved to a new ssd1306xledtx module, function to work with text.
+Moved to a new ssd1306xledtx module, function to work with images.
+
+Moved to a new ssd1306xledfx module, function to work with text.
 
 Updated testing scripts. Source code maintenance. Updated TODO list.
 
