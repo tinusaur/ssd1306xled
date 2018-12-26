@@ -1,12 +1,13 @@
-/*
- * SSD1306xLED - Drivers for SSD1306 controlled dot matrix OLED/PLED 128x64 displays
+/**
+ * SSD1306xLED - Library for the SSD1306 based OLED/PLED 128x64 displays
  *
- * @created: 2014-08-08
- * @author: Neven Boyanov
+ * @author Neven Boyanov
  *
- * Copyright (c) 2016 Neven Boyanov, Tinusaur Team. All Rights Reserved.
+ * This is part of the Tinusaur/SSD1306xLED project.
+ *
+ * Copyright (c) 2018 Neven Boyanov, The Tinusaur Team. All Rights Reserved.
  * Distributed as open source software under MIT License, see LICENSE.txt file.
- * Please, as a favor, retain the link http://tinusaur.org to The Tinusaur Project.
+ * Retain in your source code the link http://tinusaur.org to the Tinusaur project.
  *
  * Source code available at: https://bitbucket.org/tinusaur/ssd1306xled
  *
@@ -32,12 +33,9 @@
 // ----------------------------------------------------------------------------
 
 #include "../ssd1306xled/ssd1306xled.h"
-
-// ============================================================================
-
 #include "../ssd1306xled_cn/font1616cn.h"
 
-// ============================================================================
+// ----------------------------------------------------------------------------
 
 int main(void)
 {
@@ -69,5 +67,7 @@ int main(void)
 		_delay_ms(4000);
 	}
 	
-	return (0);
+	return 0; // Return the mandatory result value. It is "0" for success.
 }
+
+// ============================================================================

@@ -1,5 +1,5 @@
 /**
- * SSD1306xLED - Library/Driver for the SSD1306 based OLED/PLED 128x64 displays
+ * SSD1306xLED - Library for the SSD1306 based OLED/PLED 128x64 displays
  *
  * @author Neven Boyanov
  *
@@ -50,7 +50,7 @@
 int main(void) {
 
 	// ---- Initialization ----
-	
+
 	// ---- CPU Frequency Setup ----
 #if F_CPU == 1000000UL
 #pragma message "F_CPU=1MHZ"
@@ -73,7 +73,8 @@ int main(void) {
 
 	// ---- Main Loop ----
 	for (;;) {
-		ssd1306_clear(); _delay_ms(STEPS_DELAY_SHORT);
+		ssd1306_clear();
+		_delay_ms(STEPS_DELAY_SHORT);
 
 		// ---- Fill out screen with sequential bytes values ----
 		ssd1306_setpos(0, 0);
@@ -91,14 +92,21 @@ int main(void) {
 		_delay_ms(STEPS_DELAY);
 
 		// ---- Fill out screen with patters ----
-		ssd1306_fill(0xAA); _delay_ms(STEPS_DELAY);	// Horizontal lines
-		ssd1306_fill2(0XFF, 0x00); _delay_ms(STEPS_DELAY);	// Vertical lines
-		ssd1306_fill2(0x55, 0xAA); _delay_ms(STEPS_DELAY);	// Dots
-		ssd1306_fill4(0xCC, 0xCC, 0x33, 0x33); _delay_ms(STEPS_DELAY);	// Small squares
-		ssd1306_fill4(0xC0, 0x30, 0x0C, 0x03); _delay_ms(STEPS_DELAY);	// Slashes, sloping lines
-		ssd1306_fill4(0x30, 0xC0, 0x03, 0x0C); _delay_ms(STEPS_DELAY);	// Slashes, sloping lines
-		ssd1306_fill(0XFF); _delay_ms(STEPS_DELAY);	// Solid
-		_delay_ms(STEPS_DELAY_LONG);		
+		ssd1306_fill(0xAA);	// Horizontal lines
+		_delay_ms(STEPS_DELAY);
+		ssd1306_fill2(0XFF, 0x00);	// Vertical lines
+		_delay_ms(STEPS_DELAY);
+		ssd1306_fill2(0x55, 0xAA);	// Dots
+		_delay_ms(STEPS_DELAY);
+		ssd1306_fill4(0xCC, 0xCC, 0x33, 0x33);	// Small squares
+		_delay_ms(STEPS_DELAY);
+		ssd1306_fill4(0xC0, 0x30, 0x0C, 0x03);	// Slashes, sloping lines
+		_delay_ms(STEPS_DELAY);
+		ssd1306_fill4(0x30, 0xC0, 0x03, 0x0C);	// Slashes, sloping lines
+		_delay_ms(STEPS_DELAY);
+		ssd1306_fill(0XFF);	// Solid
+		_delay_ms(STEPS_DELAY);
+		_delay_ms(STEPS_DELAY_LONG);
 	}
 
 	return 0; // Return the mandatory result value. It is "0" for success.

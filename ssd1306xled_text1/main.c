@@ -1,5 +1,5 @@
 /**
- * SSD1306xLED - Library/Driver for the SSD1306 based OLED/PLED 128x64 displays
+ * SSD1306xLED - Library for the SSD1306 based OLED/PLED 128x64 displays
  *
  * @author Neven Boyanov
  *
@@ -94,7 +94,7 @@ int main(void) {
 		_delay_ms(STEPS_DELAY_LONG); _delay_ms(STEPS_DELAY_LONG); _delay_ms(STEPS_DELAY_LONG); 
 	}
 
-	return 0;	// Return the mandatory for the "main" function int value. It is "0" for success.
+	return 0; // Return the mandatory result value. It is "0" for success.
 }
 
 // ============================================================================

@@ -1,4 +1,4 @@
-SSD1306xLED - Drivers for SSD1306 controlled dot matrix OLED/PLED 128x64 displays
+SSD1306xLED - Library for the SSD1306 based OLED/PLED 128x64 displays
 
 -----------------------------------------------------------------------------------
  Copyright (c) 2016 Neven Boyanov, Tinusaur Team. All Rights Reserved.

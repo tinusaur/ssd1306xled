@@ -1,4 +1,4 @@
-SSD1306xLED - Library/Driver for the SSD1306 based OLED/PLED 128x64 displays
+SSD1306xLED - Library for the SSD1306 based OLED/PLED 128x64 displays
 
 This is a testing project.
 

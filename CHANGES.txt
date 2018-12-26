@@ -1,6 +1,11 @@
 CHANGES
 
 
+2018-12-26 (nb)
+
+Source code maintenance. Changes in the texts.
+
+
 2018-05-24 (nb)
 
 Source code reorganizing, reformatting. Removed unused. Some optimizations.
