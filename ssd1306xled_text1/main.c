@@ -23,8 +23,9 @@
 
 #include "tinyavrlib/cpufreq.h"
 
-#include "ssd1306xled/font6x8.h"
 #include "ssd1306xled/ssd1306xled.h"
+#include "ssd1306xled/ssd1306xledtx.h"
+#include "ssd1306xled/font6x8.h"
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                 ATtiny85
@@ -70,11 +71,11 @@ int main(void) {
 
 		// ---- Fill out screen with patters ----
 		ssd1306_fill2(0x80, 0x00);
-		_delay_ms(TESTING_DELAY << 2);
+		_delay_ms(TESTING_DELAY);
 
 		// NOTE: Screen width - 128, that is 21 symbols per row.
 
-		// ---- Print some small and large text on the screen ----
+		// ---- Print some text on the screen ----
 		ssd1306_setpos(0, 0);
 		ssd1306_string_font6x8("Hello, World! Testing");
 		ssd1306_setpos(7, 1);

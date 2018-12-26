@@ -23,9 +23,10 @@
 
 #include "tinyavrlib/cpufreq.h"
 
-#include "ssd1306xled/font6x8.h"
-#include "ssd1306xled/font8x16.h"
 #include "ssd1306xled/ssd1306xled.h"
+#include "ssd1306xled/ssd1306xledtx.h"
+#include "ssd1306xled/font6x8.h"
+// #include "ssd1306xled/font8x16.h"
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                 ATtiny85
@@ -60,7 +61,7 @@ int main(void) {
 
 	// ---- Initialization ----
 	ssd1306xled_font6x8 = ssd1306xled_font6x8data;
-	ssd1306xled_font8x16 = ssd1306xled_font8x16data;
+	// ssd1306xled_font8x16 = ssd1306xled_font8x16data;
 
 	// Small delay is necessary if ssd1306_init is the first operation in the application.
 	_delay_ms(40);

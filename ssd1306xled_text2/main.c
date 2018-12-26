@@ -26,6 +26,7 @@
 #include "ssd1306xled/font6x8.h"
 #include "ssd1306xled/font8x16.h"
 #include "ssd1306xled/ssd1306xled.h"
+#include "ssd1306xled/ssd1306xledtx.h"
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                 ATtiny85
@@ -76,7 +77,7 @@ int main(void) {
 
 		// NOTE: Screen width - 128, that is 21 symbols per row.
 
-		// ---- Print some text on the screen ----
+		// ---- Print some small and large text on the screen ----
 		ssd1306_string_font8x16xy(0, 0, "Hello, World! :)");
 		ssd1306_setpos(7, 2);
 		ssd1306_string_font6x8("SSD1306xLED Library");

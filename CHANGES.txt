@@ -3,6 +3,8 @@ CHANGES
 
 2018-12-26 (nb)
 
+Moved to a new ssd1306xledtx module, function to work with text.
+
 Updated testing scripts. Source code maintenance. Updated TODO list.
 
 Removed unused modules - local copy of "num2str", "ssd1306xled_cn" and "ssd1306xled_test_cn".
