@@ -30,19 +30,16 @@ extern void i2csw_byte(uint8_t byte);
 
 // ----------------------------------------------------------------------------
 
-void ssd1306_draw_bmp(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, const uint8_t bitmap[])
-{
+void ssd1306_draw_bmp(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, const uint8_t bitmap[]) {
 	uint16_t j = 0;
 	uint8_t y;
 	if (y1 % 8 == 0) y = y1 / 8;
 	else y = y1 / 8 + 1;
-	for (y = y0; y < y1; y++)
-	{
+	for (y = y0; y < y1; y++) {
 		// TODO: QUESTION - Is this correct: ssd1306_setpos() and then just i2csw_byte() ???
-		ssd1306_setpos(x0,y);
+		ssd1306_setpos(x0, y);
 		i2csw_start();
-		for (uint8_t x = x0; x < x1; x++)
-		{
+		for (uint8_t x = x0; x < x1; x++) {
 			i2csw_byte(pgm_read_byte(&bitmap[j++]));
 		}
 		i2csw_stop();

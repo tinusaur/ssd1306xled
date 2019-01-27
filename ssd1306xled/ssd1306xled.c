@@ -44,7 +44,7 @@ const uint8_t ssd1306_init_sequence [] PROGMEM = {	// Initialization Sequence
 	0x10,			// ---set high column address
 	0x40,			// --set start line address
 	0x81, 0x3F,		// Set contrast control register
-	0xA1,			// Set Segment Re-map. A0=address mapped; A1=address 127 mapped. 
+	0xA1,			// Set Segment Re-map. A0=address mapped; A1=address 127 mapped.
 	0xA6,			// Set display mode. A6=Normal; A7=Inverse
 	0xA8, 0x3F,		// Set multiplex ratio(1 to 64)
 	0xA4,			// Output RAM to Display
@@ -53,7 +53,7 @@ const uint8_t ssd1306_init_sequence [] PROGMEM = {	// Initialization Sequence
 	0xD5,			// --set display clock divide ratio/oscillator frequency
 	0xF0,			// --set divide ratio
 	0xD9, 0x22,		// Set pre-charge period
-	0xDA, 0x12,		// Set com pins hardware configuration		
+	0xDA, 0x12,		// Set com pins hardware configuration
 	0xDB,			// --set vcomh
 	0x20,			// 0x20,0.77xVcc
 	0x8D, 0x14,		// Set DC-DC enable
@@ -115,43 +115,37 @@ void ssd1306_command_stop(void) {
 	i2csw_stop();
 }
 
-void ssd1306_command(uint8_t command)
-{
+void ssd1306_command(uint8_t command) {
 	ssd1306_command_start();
 	i2csw_byte(command);
 	ssd1306_command_stop();
 }
 
-void ssd1306_data_start(void)
-{
+void ssd1306_data_start(void) {
 	i2csw_start();
 	i2csw_byte(SSD1306_SA);
 	i2csw_byte(0x40);	//write data
 }
 
-void ssd1306_data_stop(void)
-{
+void ssd1306_data_stop(void) {
 	i2csw_stop();
 }
 
 // ============================================================================
 
-void ssd1306_init(void)
-{
+void ssd1306_init(void) {
 	DDRB |= (1 << SSD1306_SDA);	// Set port as output
 	DDRB |= (1 << SSD1306_SCL);	// Set port as output
-	
 	for (uint8_t i = 0; i < sizeof (ssd1306_init_sequence); i++) {
 		ssd1306_command(pgm_read_byte(&ssd1306_init_sequence[i]));
 	}
 }
 
-void ssd1306_setpos(uint8_t x, uint8_t y)
-{
+void ssd1306_setpos(uint8_t x, uint8_t y) {
 	ssd1306_command_start();
 	i2csw_byte(0xb0 + y);
 	i2csw_byte(((x & 0xf0) >> 4) | 0x10); // | 0x10
-/* TODO: Verify correctness */	i2csw_byte((x & 0x0f)); // | 0x01
+	/* TODO: Verify correctness */	i2csw_byte((x & 0x0f)); // | 0x01
 	ssd1306_command_stop();
 }
 

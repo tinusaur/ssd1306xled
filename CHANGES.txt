@@ -1,7 +1,9 @@
 CHANGES
 
 
-2018-12-26 (nb)
+2019-01-27 (nb)
+
+Minor source code reformatting.
 
 Some functions moved to the new internal library - I2CSW - I2C Simple Writer,, other renamed. Testing scripts updated.
 
