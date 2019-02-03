@@ -24,8 +24,8 @@
 
 // ----------------------------------------------------------------------------
 
-extern void i2csw_start(void);
-extern void i2csw_stop(void);
+extern void i2csw_data_start(void);
+extern void i2csw_data_stop(void);
 extern void i2csw_byte(uint8_t byte);
 
 // ----------------------------------------------------------------------------
@@ -38,11 +38,11 @@ void ssd1306_draw_bmp(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, const uint
 	for (y = y0; y < y1; y++) {
 		// TODO: QUESTION - Is this correct: ssd1306_setpos() and then just i2csw_byte() ???
 		ssd1306_setpos(x0, y);
-		i2csw_start();
+		ssd1306_data_start();
 		for (uint8_t x = x0; x < x1; x++) {
 			i2csw_byte(pgm_read_byte(&bitmap[j++]));
 		}
-		i2csw_stop();
+		ssd1306_data_stop();
 	}
 }
 

@@ -1,7 +1,7 @@
 SSD1306xLED - Library for the SSD1306 based OLED/PLED 128x64 displays
 
 -----------------------------------------------------------------------------------
- Copyright (c) 2016 Neven Boyanov, Tinusaur Team. All Rights Reserved.
+ Copyright (c) 2018 Neven Boyanov, Tinusaur Team. All Rights Reserved.
  Distributed as open source software under MIT License, see LICENSE.txt file.
  Please, as a favor, retain the link http://tinusaur.org to The Tinusaur Project.
 -----------------------------------------------------------------------------------
