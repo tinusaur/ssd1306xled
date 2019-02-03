@@ -28,7 +28,12 @@
 
 extern void i2csw_data_start(void);
 extern void i2csw_data_stop(void);
-extern void i2csw_byte(uint8_t byte);
+extern void i2csw_byte(uint8_t byte); // Used by ssd1306_data_byte
+
+extern void ssd1306_command(uint8_t command);
+extern void ssd1306_data_start(void);
+extern void ssd1306_data_stop(void);
+#define ssd1306_data_byte(b) i2csw_byte(b)
 
 // ----------------------------------------------------------------------------
 
@@ -48,7 +53,7 @@ void ssd1306tx_char(char ch) {
 	uint8_t c = ch - 32; // Convert ASCII code to font data index.
 	ssd1306_data_start();
 	for (uint8_t i = 0; i < 6; i++) {
-		i2csw_byte(pgm_read_byte(&ssd1306tx_font_src[c * 6 + i]));	// TODO: Optimize this.
+		ssd1306_data_byte(pgm_read_byte(&ssd1306tx_font_src[c * 6 + i]));	// TODO: Optimize this.
 	}
 	ssd1306_data_stop();
 }
@@ -88,13 +93,13 @@ void ssd1306tx_stringxy(const uint8_t *fron_src, uint8_t x, uint8_t y, const cha
 		ssd1306_setpos(x, y);
 		ssd1306_data_start();
 		for (uint8_t i = 0; i < 8; i++) {
-			i2csw_byte(pgm_read_byte(&fron_src[ch * 16 + i]));
+			ssd1306_data_byte(pgm_read_byte(&fron_src[ch * 16 + i]));
 		}
 		ssd1306_data_stop();
 		ssd1306_setpos(x, y + 1);
 		ssd1306_data_start();
 		for (uint8_t i = 0; i < 8; i++) {
-			i2csw_byte(pgm_read_byte(&fron_src[ch * 16 + i + 8]));
+			ssd1306_data_byte(pgm_read_byte(&fron_src[ch * 16 + i + 8]));
 		}
 		ssd1306_data_stop();
 		x += 8;

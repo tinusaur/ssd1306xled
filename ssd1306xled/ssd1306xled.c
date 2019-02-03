@@ -30,6 +30,7 @@ void i2csw_byte(uint8_t byte);
 void ssd1306_command(uint8_t command);
 void ssd1306_data_start(void);
 void ssd1306_data_stop(void);
+#define ssd1306_data_byte(b) i2csw_byte(b)
 
 // ----------------------------------------------------------------------------
 

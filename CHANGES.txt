@@ -3,6 +3,8 @@ CHANGES
 
 2019-02-03 (nb)
 
+Added "extern" functions where needed.
+
 FIX: used wrong function - *_start/stop instead of *data_start/stop.
 
 
