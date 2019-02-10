@@ -24,14 +24,9 @@
 
 // ----------------------------------------------------------------------------
 
-extern void i2csw_data_start(void);
-extern void i2csw_data_stop(void);
-extern void i2csw_byte(uint8_t byte); // Used by ssd1306_data_byte
-
-extern void ssd1306_command(uint8_t command);
-extern void ssd1306_data_start(void);
-extern void ssd1306_data_stop(void);
-#define ssd1306_data_byte(b) i2csw_byte(b)
+extern void ssd1306_start_data(void);	// Initiate transmission of data
+extern void ssd1306_data_byte(uint8_t);	// Transmission 1 byte of data
+extern void ssd1306_stop(void);			// Finish transmission
 
 // ----------------------------------------------------------------------------
 
@@ -43,11 +38,11 @@ void ssd1306_draw_bmp(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, const uint
 	for (y = y0; y < y1; y++) {
 		// TODO: QUESTION - Is this correct: ssd1306_setpos() and then just ssd1306_data_byte() ???
 		ssd1306_setpos(x0, y);
-		ssd1306_data_start();
+		ssd1306_start_data();
 		for (uint8_t x = x0; x < x1; x++) {
 			ssd1306_data_byte(pgm_read_byte(&bitmap[j++]));
 		}
-		ssd1306_data_stop();
+		ssd1306_stop();
 	}
 }
 

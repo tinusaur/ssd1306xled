@@ -23,22 +23,18 @@
 
 // ----------------------------------------------------------------------------
 
-void i2csw_start(void);
-void i2csw_stop(void);
-void i2csw_byte(uint8_t byte);
-
-void ssd1306_command(uint8_t command);
-void ssd1306_data_start(void);
-void ssd1306_data_stop(void);
-#define ssd1306_data_byte(b) i2csw_byte(b)
+void ssd1306_start_command(void);	// Initiate transmission of command
+void ssd1306_start_data(void);	// Initiate transmission of data
+void ssd1306_data_byte(uint8_t);	// Transmission 1 byte of data
+void ssd1306_stop(void);	// Finish transmission
 
 // ----------------------------------------------------------------------------
 
 const uint8_t ssd1306_init_sequence [] PROGMEM = {	// Initialization Sequence
 	0xAE,			// Display OFF (sleep mode)
-	0x20, 0b00,		// Set Memory Addressing Mode
-					// 00=Horizontal Addressing Mode; 01=Vertical Addressing Mode;
-					// 10=Page Addressing Mode (RESET); 11=Invalid
+	0x20, 0x00,		// Set Memory Addressing Mode
+	//				// 00=Horizontal Addressing Mode; 01=Vertical Addressing Mode;
+	//				// 10=Page Addressing Mode (RESET); 11=Invalid
 	0xB0,			// Set Page Start Address for Page Addressing Mode, 0-7
 	0xC8,			// Set COM Output Scan Direction
 	0x00,			// ---set low column address
@@ -49,7 +45,7 @@ const uint8_t ssd1306_init_sequence [] PROGMEM = {	// Initialization Sequence
 	0xA6,			// Set display mode. A6=Normal; A7=Inverse
 	0xA8, 0x3F,		// Set multiplex ratio(1 to 64)
 	0xA4,			// Output RAM to Display
-					// 0xA4=Output follows RAM content; 0xA5,Output ignores RAM content
+	//				// 0xA4=Output follows RAM content; 0xA5,Output ignores RAM content
 	0xD3, 0x00,		// Set display offset. 00 = no offset
 	0xD5,			// --set display clock divide ratio/oscillator frequency
 	0xF0,			// --set divide ratio
@@ -63,19 +59,25 @@ const uint8_t ssd1306_init_sequence [] PROGMEM = {	// Initialization Sequence
 
 // ============================================================================
 
-// TODO: These functions could become separate library for handling I2C simplified output.
-// Ideas: SI2CW - Simplified I2C Writer; I2CSW - I2C Simple Writer.
-
+// TODO: These functions are separate sub-library for handling I2C simplified output.
+// NAME: I2CSW - I2C Simple Writer.
 // Some code based on "IIC_wtihout_ACK" by http://www.14blog.com/archives/1358 (defunct)
-
-// Convenience definitions for PORTB pins
+// Convenience definitions for manipulating PORTB pins
 // NOTE: These definitions are used only internally by the I2CSW library
 #define I2CSW_HIGH(PORT) PORTB |= (1 << PORT)
 #define I2CSW_LOW(PORT) PORTB &= ~(1 << PORT)
 
 // ----------------------------------------------------------------------------
 
+void i2csw_start(void);
+void i2csw_stop(void);
+void i2csw_byte(uint8_t byte);
+
+// ----------------------------------------------------------------------------
+
 void i2csw_start(void) {
+	DDRB |= (1 << SSD1306_SDA);	// Set port as output
+	DDRB |= (1 << SSD1306_SCL);	// Set port as output
 	I2CSW_HIGH(SSD1306_SCL);	// Set to HIGH
 	I2CSW_HIGH(SSD1306_SDA);	// Set to HIGH
 	I2CSW_LOW(SSD1306_SDA);		// Set to LOW
@@ -87,6 +89,7 @@ void i2csw_stop(void) {
 	I2CSW_LOW(SSD1306_SDA);		// Set to LOW
 	I2CSW_HIGH(SSD1306_SCL);	// Set to HIGH
 	I2CSW_HIGH(SSD1306_SDA);	// Set to HIGH
+	DDRB &= ~(1 << SSD1306_SDA);// Set port as input
 }
 
 void i2csw_byte(uint8_t byte) {
@@ -106,68 +109,54 @@ void i2csw_byte(uint8_t byte) {
 
 // ============================================================================
 
-void ssd1306_command_start(void) {
+void ssd1306_start_command(void) {
 	i2csw_start();
-	i2csw_byte(SSD1306_SA);  // Slave address, SA0=0
-	i2csw_byte(0x00);	// write command
+	i2csw_byte(SSD1306_SADDR);	// Slave address: R/W(SA0)=0 - write
+	i2csw_byte(0x00);			// Control byte: D/C=0 - write command
 }
 
-void ssd1306_command_stop(void) {
-	i2csw_stop();
-}
-
-void ssd1306_command(uint8_t command) {
-	ssd1306_command_start();
-	i2csw_byte(command);
-	ssd1306_command_stop();
-}
-
-void ssd1306_data_start(void) {
+void ssd1306_start_data(void) {
 	i2csw_start();
-	i2csw_byte(SSD1306_SA);
-	i2csw_byte(0x40);	//write data
+	i2csw_byte(SSD1306_SADDR);	// Slave address, R/W(SA0)=0 - write
+	i2csw_byte(0x40);			// Control byte: D/C=1 - write data
 }
 
-void ssd1306_data_stop(void) {
+void ssd1306_data_byte(uint8_t b) {
+	i2csw_byte(b);
+}
+
+void ssd1306_stop(void) {
 	i2csw_stop();
 }
 
 // ============================================================================
 
 void ssd1306_init(void) {
-	DDRB |= (1 << SSD1306_SDA);	// Set port as output
-	DDRB |= (1 << SSD1306_SCL);	// Set port as output
+	ssd1306_start_command();	// Initiate transmission of command
 	for (uint8_t i = 0; i < sizeof (ssd1306_init_sequence); i++) {
-		ssd1306_command(pgm_read_byte(&ssd1306_init_sequence[i]));
+		ssd1306_data_byte(pgm_read_byte(&ssd1306_init_sequence[i]));	// Send the command out
 	}
+	ssd1306_stop();	// Finish transmission
 }
 
 void ssd1306_setpos(uint8_t x, uint8_t y) {
-	ssd1306_command_start();
-	i2csw_byte(0xb0 + y);
-	i2csw_byte(((x & 0xf0) >> 4) | 0x10); // | 0x10
-	/* TODO: Verify correctness */	i2csw_byte((x & 0x0f)); // | 0x01
-	ssd1306_command_stop();
+	ssd1306_start_command();
+	ssd1306_data_byte(0xb0 | (y & 0x07));	// Set page start address
+	ssd1306_data_byte(x & 0x0f);			// Set the lower nibble of the column start address
+	ssd1306_data_byte(0x10 | (x >> 4));		// Set the higher nibble of the column start address
+	ssd1306_stop();	// Finish transmission
 }
 
 void ssd1306_fill4(uint8_t p1, uint8_t p2, uint8_t p3, uint8_t p4) {
 	ssd1306_setpos(0, 0);
-	ssd1306_data_start();
+	ssd1306_start_data();	// Initiate transmission of data
 	for (uint16_t i = 0; i < 128 * 8 / 4; i++) {
-		i2csw_byte(p1);
-		i2csw_byte(p2);
-		i2csw_byte(p3);
-		i2csw_byte(p4);
+		ssd1306_data_byte(p1);
+		ssd1306_data_byte(p2);
+		ssd1306_data_byte(p3);
+		ssd1306_data_byte(p4);
 	}
-	ssd1306_data_stop();
-}
-
-// ----------------------------------------------------------------------------
-
-void ssd1306_byte(uint8_t b) {
-	ssd1306_data_start();
-	i2csw_byte(b);
-	ssd1306_data_stop();
+	ssd1306_stop();	// Finish transmission
 }
 
 // ============================================================================
