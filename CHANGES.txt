@@ -3,6 +3,8 @@ CHANGES
 
 2019-02-10 (nb)
 
+Testing scripts updated and tested.
+
 Some refactoring/renaming, minor fixes, optimizations, removed unused functions.
 - Some refactoring (renaming). Minor fixes.
 - Code optimizations for size and speed.

@@ -40,6 +40,12 @@
 
 // ----------------------------------------------------------------------------
 
+extern void ssd1306_start_data(void);	// Initiate transmission of data
+extern void ssd1306_data_byte(uint8_t);	// Transmission 1 byte of data
+extern void ssd1306_stop(void);			// Finish transmission
+
+// ----------------------------------------------------------------------------
+
 #define TESTING_DELAY 500
 
 int main(void) {
@@ -67,18 +73,22 @@ int main(void) {
 		// ---- Fill out screen with random bytes values ----
 		uint16_t r = 100;
 		ssd1306_setpos(0, 0);
+		ssd1306_start_data();	// Initiate transmission of data
 		for (uint16_t i = 0; i < 128 * 8; i++) {
 			// rand=(rand*109+89)%251; // Ref: https://www.avrfreaks.net/forum/random-number-generation-0
 			r = (r * 109 + 89) % 521; // Generate a pseudo random number.
-			ssd1306_byte(r);
+			ssd1306_data_byte(r);
 		}
+		ssd1306_stop();
 		_delay_ms(TESTING_DELAY);
 
 		// ---- Fill out screen with sequential bytes values ----
 		ssd1306_setpos(0, 0);
+		ssd1306_start_data();	// Initiate transmission of data
 		for (uint16_t i = 0; i < 128 * 8; i++) {
-			ssd1306_byte(i);
+			ssd1306_data_byte(i);
 		}
+		ssd1306_stop();
 		_delay_ms(TESTING_DELAY);
 
 		// ---- Fill out screen line by line ----
