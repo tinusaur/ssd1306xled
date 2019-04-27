@@ -1,6 +1,11 @@
 CHANGES
 
 
+2019-04-27 (nb)
+
+Updated ssd1306_init_sequence, fixes and more, compatibility with SSD1315.
+
+
 2019-02-10 (nb)
 
 Testing scripts updated and tested.
