@@ -66,7 +66,7 @@ int main(void) {
 
 	// ---- Main Loop ----
 	for (;;) {
-		ssd1306_clear();
+		ssd1306_clear();	// Clear the screen.
 
 		// ---- Fill out screen with patters ----
 		ssd1306_fill2(0x55, 0xAA);	// Dots

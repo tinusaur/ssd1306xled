@@ -61,14 +61,12 @@ int main(void) {
 #endif
 
 	// ---- Initialization ----
-
-	// Small delay is necessary if ssd1306_init is the first operation in the application.
-	_delay_ms(40);
+	_delay_ms(40);	// Small delay might be necessary if ssd1306_init is the first operation in the application.
 	ssd1306_init();
 
 	// ---- Main Loop ----
 	for (;;) {
-		ssd1306_clear();
+		ssd1306_clear();	// Clear the screen.
 
 		// ---- Draw bitmap on the screen ----
 		ssd1306_draw_bmp(0, 0, 128, 8, img0s128x64c1);

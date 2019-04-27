@@ -76,7 +76,7 @@ int main(void) {
 		ssd1306_start_data();	// Initiate transmission of data
 		for (uint16_t i = 0; i < 128 * 8; i++) {
 			// rand=(rand*109+89)%251; // Ref: https://www.avrfreaks.net/forum/random-number-generation-0
-			r = (r * 109 + 89) % 521; // Generate a pseudo random number.
+			r = (r * 109 + 89) % 521; // Generate a pseudo random number. Linear congruential generator
 			ssd1306_data_byte(r);
 		}
 		ssd1306_stop();
