@@ -45,10 +45,10 @@ void ssd1306tx_init(const uint8_t *fron_src, uint8_t char_base) {
 // ----------------------------------------------------------------------------
 
 void ssd1306tx_char(char ch) {
-	uint8_t c = ch - 32; // Convert ASCII code to font data index.
+	uint16_t j = (ch << 2) + (ch << 1) - 192; // Equiv.: j=(ch-32)*6 <== Convert ASCII code to font data index.
 	ssd1306_start_data();
 	for (uint8_t i = 0; i < 6; i++) {
-		ssd1306_data_byte(pgm_read_byte(&ssd1306tx_font_src[c * 6 + i]));	// TODO: Optimize this.
+		ssd1306_data_byte(pgm_read_byte(&ssd1306tx_font_src[j + i]));
 	}
 	ssd1306_stop();
 }
@@ -78,9 +78,9 @@ void ssd1306tx_numdecp(uint16_t num) {
 // ----------------------------------------------------------------------------
 
 void ssd1306tx_stringxy(const uint8_t *fron_src, uint8_t x, uint8_t y, const char s[]) {
-	uint8_t ch, j = 0;
-	while (s[j] != '\0') {
-		ch = s[j] - 32; // Convert ASCII code to font data index.
+	uint16_t j, k = 0;
+	while (s[k] != '\0') {
+		j = s[k] * 16 - (32 * 16); // Convert ASCII code to font data index. NOTE: (x*16) already optimized to (x<<4).
 		if (x > 120) {
 			x = 0;    // Go to the next line.
 			y++;
@@ -88,17 +88,17 @@ void ssd1306tx_stringxy(const uint8_t *fron_src, uint8_t x, uint8_t y, const cha
 		ssd1306_setpos(x, y);
 		ssd1306_start_data();
 		for (uint8_t i = 0; i < 8; i++) {
-			ssd1306_data_byte(pgm_read_byte(&fron_src[ch * 16 + i]));
+			ssd1306_data_byte(pgm_read_byte(&fron_src[j + i]));
 		}
 		ssd1306_stop();
 		ssd1306_setpos(x, y + 1);
 		ssd1306_start_data();
 		for (uint8_t i = 0; i < 8; i++) {
-			ssd1306_data_byte(pgm_read_byte(&fron_src[ch * 16 + i + 8]));
+			ssd1306_data_byte(pgm_read_byte(&fron_src[j + i + 8]));
 		}
 		ssd1306_stop();
 		x += 8;
-		j++;
+		k++;
 	}
 }
 

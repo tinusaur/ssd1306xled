@@ -3,6 +3,8 @@ CHANGES
 
 2019-04-27 (nb)
 
+Code optimizations in ssd1306xledtx for speed and size.
+
 Testing scripts updated and tested.
 
 Updated ssd1306_init_sequence, fixes and more, compatibility with SSD1315.
