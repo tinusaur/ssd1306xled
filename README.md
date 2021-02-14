@@ -38,7 +38,7 @@ Folders and modules:
 
 ## How does it works?
 
-	TO-DO
+![Tinusaur SSD1306xLED Library Diagram](/media/Tinusaur-SSD1306xLED-Diagram.png "Tinusaur SSD1306xLED Library Diagram")*Tinusaur SSD1306xLED Library Diagram*
 
 ## Compatibility
 
