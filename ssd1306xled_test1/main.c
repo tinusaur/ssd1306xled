@@ -1,16 +1,13 @@
 /**
- * SSD1306xLED - Library for the SSD1306 based OLED/PLED 128x64 displays
- *
+ * SSD1306xLED - Testing scripts
  * @author Neven Boyanov
- *
  * This is part of the Tinusaur/SSD1306xLED project.
- *
- * Copyright (c) 2018 Neven Boyanov, The Tinusaur Team. All Rights Reserved.
- * Distributed as open source software under MIT License, see LICENSE.txt file.
- * Retain in your source code the link http://tinusaur.org to the Tinusaur project.
- *
- * Source code available at: https://bitbucket.org/tinusaur/ssd1306xled
- *
+ * ----------------------------------------------------------------------------
+ *  Copyright (c) 2021 Tinusaur (https://tinusaur.com). All rights reserved.
+ *  Distributed as open source under the MIT License (see the LICENSE.txt file)
+ *  Please, retain in your work a link to the Tinusaur project website.
+ * ----------------------------------------------------------------------------
+ * Source code available at: https://gitlab.com/tinusaur/ssd1306xled
  */
 
 // ============================================================================
@@ -27,13 +24,13 @@
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                 ATtiny85
-//               +----------+   (-)--GND--
-//       (RST)---+ PB5  Vcc +---(+)--VCC--
-// ---[OWOWOD]---+ PB3  PB2 +---[TWI/SCL]-
-// --------------+ PB4  PB1 +-------------
-// --------(-)---+ GND  PB0 +---[TWI/SDA]-
+//               +----------+    (-)--GND--
+//      (RST)--> + PB5  Vcc +----(+)--VCC--
+// ---[OWOWOD]---+ PB3  PB2 +----[TWI/SCL]-
+// --------------+ PB4  PB1 +--------------
+// --------(-)---+ GND  PB0 +----[TWI/SDA]-
 //               +----------+
-//              Tinusaur Board
+//                 Tinusaur
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // NOTE: If you want to reassign the SCL and SDA pins and the I2C address
 // do that in the library source code and recompile it so it will take affect.
@@ -74,10 +71,13 @@ int main(void) {
 		uint16_t r = 100;
 		ssd1306_setpos(0, 0);
 		ssd1306_start_data();	// Initiate transmission of data
-		for (uint16_t i = 0; i < 128 * 8; i++) {
-			// rand=(rand*109+89)%251; // Ref: https://www.avrfreaks.net/forum/random-number-generation-0
-			r = (r * 109 + 89) % 521; // Generate a pseudo random number. Linear congruential generator
-			ssd1306_data_byte(r);
+		for (uint8_t c = 60; c > 0; c--) {
+			for (uint16_t i = 128 * 8; i > 0; i--) {
+				// rand=(rand*109+89)%251; // Ref: https://www.avrfreaks.net/forum/random-number-generation-0
+				r = (r * 109 + 89) % 521; // Generate a pseudo random number. Linear congruential generator
+				ssd1306_data_byte(r);
+			}
+			r <<= 2;
 		}
 		ssd1306_stop();
 		_delay_ms(TESTING_DELAY);
@@ -85,7 +85,7 @@ int main(void) {
 		// ---- Fill out screen with sequential bytes values ----
 		ssd1306_setpos(0, 0);
 		ssd1306_start_data();	// Initiate transmission of data
-		for (uint16_t i = 0; i < 128 * 8; i++) {
+		for (uint16_t i = 128 * 8; i > 0; i--) {
 			ssd1306_data_byte(i);
 		}
 		ssd1306_stop();
@@ -116,7 +116,7 @@ int main(void) {
 		_delay_ms(TESTING_DELAY);
 	}
 
-	return 0; // Return the mandatory result value. It is "0" for success.
+	return 0; // Return the mandatory for the "main" function int value - "0" for success.
 }
 
 // ============================================================================
