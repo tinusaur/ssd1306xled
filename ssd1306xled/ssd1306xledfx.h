@@ -13,8 +13,8 @@
  *
  */
 
-#ifndef SSD1306XLED_H
-#define SSD1306XLED_H
+#ifndef SSD1306XLEDFX_H
+#define SSD1306XLEDFX_H
 
 // ============================================================================
 
