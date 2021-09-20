@@ -27,14 +27,14 @@
 
 // ----------------------------------------------------------------------------
 
-#define ssd1306_clear() ssd1306_fill4(0, 0, 0, 0)
-#define ssd1306_fill(p) ssd1306_fill4(p, p, p, p)
+#define ssd1306_clear() ssd1306_fill(0)
 #define ssd1306_fill2(p1, p2) ssd1306_fill4(p1, p2, p1, p2)
 
 // ----------------------------------------------------------------------------
 
 void ssd1306_init(void);
-void ssd1306_setpos(uint8_t x, uint8_t y);
+void ssd1306_setpos(uint8_t, uint8_t);
+void ssd1306_fill(uint8_t);
 void ssd1306_fill4(uint8_t, uint8_t, uint8_t, uint8_t);
 
 // ============================================================================

@@ -91,6 +91,18 @@ const uint8_t ssd1306_init_sequence [] PROGMEM = {	// Initialization Sequence
 #define I2CSW_HIGH(PORT) PORTB |= (1 << PORT)
 #define I2CSW_LOW(PORT) PORTB &= ~(1 << PORT)
 
+// TO-DO: Implement and use the definitions below.
+#define I2CSW_SDA_DDI()		// Data direction INPUT (0x17 is DDRB)
+#define I2CSW_SDA_DDO()		// Data direction OUTPUT
+#define I2CSW_SDA_HI()		// Port to HIGH
+#define I2CSW_SDA_LO()		// Port to LOW
+#define I2CSW_SCL_DDI()		// Data direction INPUT
+#define I2CSW_SCL_DDO()		// Data direction OUTPUTT
+#define I2CSW_SCL_HI()		// Port to HIGH
+#define I2CSW_SCL_LO()		// Port to LOW
+// IMPORTANT/NOTE: There is no need to use AVR ASM instructions such as "cbi" and "sbi"
+// The compiler optimizes the bit-shift operations to those instructions.
+
 // ----------------------------------------------------------------------------
 
 void i2csw_start(void);
@@ -114,15 +126,17 @@ void i2csw_stop(void) {
 	I2CSW_HIGH(SSD1306_SCL);	// Set to HIGH
 	I2CSW_HIGH(SSD1306_SDA);	// Set to HIGH
 	DDRB &= ~(1 << SSD1306_SDA);// Set port as input
+	DDRB &= ~(1 << SSD1306_SCL);// Set port as input
 }
 
-void i2csw_byte(uint8_t byte) {
+void i2csw_byte(uint8_t b) {
 	uint8_t i;
 	for (i = 0; i < 8; i++) {
-		if ((byte << i) & 0x80)
+		if (b & 0x80)
 			I2CSW_HIGH(SSD1306_SDA);
 		else
 			I2CSW_LOW(SSD1306_SDA);
+		b = b << 1;
 		I2CSW_HIGH(SSD1306_SCL);
 		I2CSW_LOW(SSD1306_SCL);
 	}
@@ -160,7 +174,7 @@ void ssd1306_init(void) {
 	for (uint8_t i = 0; i < sizeof (ssd1306_init_sequence); i++) {
 		ssd1306_data_byte(pgm_read_byte(&ssd1306_init_sequence[i]));	// Send the command out
 	}
-	ssd1306_stop();	// Finish transmission
+	ssd1306_stop();	// Finish transmission of data
 }
 
 void ssd1306_setpos(uint8_t x, uint8_t y) {
@@ -168,7 +182,16 @@ void ssd1306_setpos(uint8_t x, uint8_t y) {
 	ssd1306_data_byte(0xb0 | (y & 0x07));	// Set page start address
 	ssd1306_data_byte(x & 0x0f);			// Set the lower nibble of the column start address
 	ssd1306_data_byte(0x10 | (x >> 4));		// Set the higher nibble of the column start address
-	ssd1306_stop();	// Finish transmission
+	ssd1306_stop();	// Finish transmission of data
+}
+
+void ssd1306_fill(uint8_t p) {
+	ssd1306_setpos(0, 0);
+	ssd1306_start_data(); // Initiate transmission of data
+	for (uint16_t i = 128 * 8; i > 0; i--) {
+		ssd1306_data_byte(p);
+	}
+	ssd1306_stop(); // Finish transmission of data
 }
 
 void ssd1306_fill4(uint8_t p1, uint8_t p2, uint8_t p3, uint8_t p4) {
@@ -180,7 +203,7 @@ void ssd1306_fill4(uint8_t p1, uint8_t p2, uint8_t p3, uint8_t p4) {
 		ssd1306_data_byte(p3);
 		ssd1306_data_byte(p4);
 	}
-	ssd1306_stop();	// Finish transmission
+	ssd1306_stop();	// Finish transmission of data
 }
 
 // ============================================================================
