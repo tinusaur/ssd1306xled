@@ -14,7 +14,7 @@ SSD1306xLED is a small C library for working with the SSD1306 display driver to 
 
 NOTE: This project was developed for and tested on the ATtiny85 microcontrollers. It might or might not work in other environments.
 
-- Tinusaur website: https://tinusaur.org
+- Tinusaur website: https://tinusaur.com
 - Tinusaur on Twitter: https://twitter.com/tinusaur
 - Tinusaur on Facebook: https://www.facebook.com/tinusaur
 
@@ -43,4 +43,5 @@ Folders and modules:
 ## Compatibility
 
 - MCU: This library was developed and tested with the following microcontrollers: ATtiny85, ATtiny45, ATtiny25.
-- CPU FREQUENCY: This library has support and was tested work at 1 MHz and 8 MHz CPU clock mode.
+- CPU FREQUENCY: This library has support for and was tested to work at 1 MHz and 8 MHz CPU clock mode.
+
