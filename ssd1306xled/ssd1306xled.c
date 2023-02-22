@@ -1,23 +1,15 @@
 /**
  * SSD1306xLED - Library for the SSD1306 based OLED/PLED 128x64 displays
- *
  * @author Neven Boyanov
- *
  * This is part of the Tinusaur/SSD1306xLED project.
- *
- * Copyright (c) 2018 Neven Boyanov, The Tinusaur Team. All Rights Reserved.
- * Distributed as open source software under MIT License, see LICENSE.txt file.
- * Retain in your source code the link http://tinusaur.org to the Tinusaur project.
- *
- * Source code available at: https://bitbucket.org/tinusaur/ssd1306xled
- *
+ * ----------------------------------------------------------------------------
+ *  Copyright (c) 2023 Tinusaur (https://tinusaur.com). All rights reserved.
+ *  Distributed as open source under the MIT License (see the LICENSE.txt file)
+ *  Please, retain in your work a link to the Tinusaur project website.
+ * ----------------------------------------------------------------------------
+ * Source code available at: https://gitlab.com/tinusaur/ssd1306xled
  */
 
-// ============================================================================
-// ACKNOWLEDGEMENTS:
-// - Some code and ideas initially based on "IIC_wtihout_ACK" 
-//   by http://www.14blog.com/archives/1358 (defunct)
-// - Init sequence used info from Adafruit_SSD1306.cpp init code.
 // ============================================================================
 
 #include <stdlib.h>
@@ -30,7 +22,7 @@
 
 void ssd1306_start_command(void);	// Initiate transmission of command
 void ssd1306_start_data(void);	// Initiate transmission of data
-void ssd1306_data_byte(uint8_t);	// Transmission 1 byte of data
+void ssd1306_byte(uint8_t);	// Transmission 1 byte of data
 void ssd1306_stop(void);	// Finish transmission
 
 // ----------------------------------------------------------------------------
@@ -86,8 +78,9 @@ const uint8_t ssd1306_init_sequence [] PROGMEM = {	// Initialization Sequence
 
 // NOTE: These functions are separate sub-library for handling I2C simplified output.
 // NAME: I2CSW - I2C Simple Writer.
+
 // Convenience definitions for manipulating PORTB pins
-// NOTE: These definitions are used only internally by the I2CSW library
+// NOTE: These definitions are used only internally by the I2CSW sub-library
 #define I2CSW_HIGH(PORT) PORTB |= (1 << PORT)
 #define I2CSW_LOW(PORT) PORTB &= ~(1 << PORT)
 
@@ -159,7 +152,7 @@ void ssd1306_start_data(void) {
 	i2csw_byte(0x40);			// Control byte: D/C=1 - write data
 }
 
-void ssd1306_data_byte(uint8_t b) {
+void ssd1306_byte(uint8_t b) {
 	i2csw_byte(b);
 }
 
@@ -172,16 +165,16 @@ void ssd1306_stop(void) {
 void ssd1306_init(void) {
 	ssd1306_start_command();	// Initiate transmission of command
 	for (uint8_t i = 0; i < sizeof (ssd1306_init_sequence); i++) {
-		ssd1306_data_byte(pgm_read_byte(&ssd1306_init_sequence[i]));	// Send the command out
+		ssd1306_byte(pgm_read_byte(&ssd1306_init_sequence[i]));	// Send the command out
 	}
 	ssd1306_stop();	// Finish transmission of data
 }
 
 void ssd1306_setpos(uint8_t x, uint8_t y) {
 	ssd1306_start_command();
-	ssd1306_data_byte(0xb0 | (y & 0x07));	// Set page start address
-	ssd1306_data_byte(x & 0x0f);			// Set the lower nibble of the column start address
-	ssd1306_data_byte(0x10 | (x >> 4));		// Set the higher nibble of the column start address
+	ssd1306_byte(0xb0 | (y & 0x07));	// Set page start address
+	ssd1306_byte(x & 0x0f);			// Set the lower nibble of the column start address
+	ssd1306_byte(0x10 | (x >> 4));		// Set the higher nibble of the column start address
 	ssd1306_stop();	// Finish transmission of data
 }
 
@@ -189,7 +182,7 @@ void ssd1306_fill(uint8_t p) {
 	ssd1306_setpos(0, 0);
 	ssd1306_start_data(); // Initiate transmission of data
 	for (uint16_t i = 128 * 8; i > 0; i--) {
-		ssd1306_data_byte(p);
+		ssd1306_byte(p);
 	}
 	ssd1306_stop(); // Finish transmission of data
 }
@@ -198,10 +191,10 @@ void ssd1306_fill4(uint8_t p1, uint8_t p2, uint8_t p3, uint8_t p4) {
 	ssd1306_setpos(0, 0);
 	ssd1306_start_data();	// Initiate transmission of data
 	for (uint16_t i = 0; i < 128 * 8 / 4; i++) {
-		ssd1306_data_byte(p1);
-		ssd1306_data_byte(p2);
-		ssd1306_data_byte(p3);
-		ssd1306_data_byte(p4);
+		ssd1306_byte(p1);
+		ssd1306_byte(p2);
+		ssd1306_byte(p3);
+		ssd1306_byte(p4);
 	}
 	ssd1306_stop();	// Finish transmission of data
 }
