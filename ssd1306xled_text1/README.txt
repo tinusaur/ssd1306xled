@@ -10,5 +10,5 @@ Alternatively, to upload the binary, type:
 	$ avrdude -c usbasp -p t85 -U flash:w:"main.hex":a
 
 To clean up files left out from previous builds, type:
-   $ make clean
+	$ make clean
 
