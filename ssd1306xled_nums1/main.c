@@ -3,7 +3,7 @@
  * @author Neven Boyanov
  * This is part of the Tinusaur/SSD1306xLED project.
  * ----------------------------------------------------------------------------
- *  Copyright (c) 2021 Tinusaur (https://tinusaur.com). All rights reserved.
+ *  Copyright (c) 2023 Tinusaur (https://tinusaur.com). All rights reserved.
  *  Distributed as open source under the MIT License (see the LICENSE.txt file)
  *  Please, retain in your work a link to the Tinusaur project website.
  * ----------------------------------------------------------------------------
@@ -12,18 +12,13 @@
 
 // ============================================================================
 
-// NOTE: About F_CPU - it should be set in either (1) Makefile; or (2) in the IDE.
-
 #include <stdint.h>
 #include <avr/io.h>
 #include <util/delay.h>
 
-#include "tinyavrlib/cpufreq.h"
-
 #include "ssd1306xled/ssd1306xled.h"
 #include "ssd1306xled/ssd1306xledtx.h"
 #include "ssd1306xled/font6x8.h"
-// #include "ssd1306xled/font8x16.h"
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                 ATtiny85
@@ -43,21 +38,7 @@
 #define TESTING_DELAY 500
 
 int main(void) {
-
-// ---- CPU Frequency Setup ----
-#if F_CPU == 1000000UL
-#pragma message "F_CPU=1MHZ"
-	CLKPR_SET(CLKPR_1MHZ);
-#elif F_CPU == 8000000UL
-#pragma message "F_CPU=8MHZ"
-	CLKPR_SET(CLKPR_8MHZ);
-#else
-#pragma message "F_CPU=????"
-#error "CPU frequency should be either 1 MHz or 8 MHz"
-#endif
-
 	// ---- Initialization ----
-	_delay_ms(40);	// Small delay might be necessary if ssd1306_init is the first operation in the application.
 	ssd1306_init();
 	ssd1306tx_init(ssd1306xled_font6x8data, ' ');
 
