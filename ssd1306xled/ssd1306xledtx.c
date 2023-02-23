@@ -40,7 +40,7 @@ void ssd1306tx_init(const uint8_t *font_src, uint8_t char_base) {
 }
 
 // ----------------------------------------------------------------------------
-
+// TODO: Use the char_base to calculate the font data index.
 void ssd1306tx_char(char ch) {
 	uint16_t j = (ch << 2) + (ch << 1) - 192; // Equiv.: j=(ch-32)*6 <== Convert ASCII code to font data index.
 	ssd1306_start_data();

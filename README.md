@@ -10,7 +10,7 @@ SSD1306xLED is a small C library for working with the SSD1306 display driver to 
 
 - SSD1306xLED source code:   https://gitlab.com/tinusaur/ssd1306xled  
   GitHub mirror at: https://github.com/tinusaur/ssd1306xled
-- SSD1306xLED project page:  http://tinusaur.org/projects/ssd1306xled
+- SSD1306xLED project page:  https://tinusaur.org/projects/ssd1306xled
 
 NOTE: This project was developed for and tested on the ATtiny85 microcontrollers. It might or might not work in other environments.
 

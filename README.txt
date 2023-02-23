@@ -1,7 +1,7 @@
 SSD1306xLED - Library for the SSD1306 based OLED/PLED displays and ATtiny85 microcontrollers.
 
 -------------------------------------------------------------------------------
- Copyright (c) 2022 Tinusaur (https://tinusaur.com). All rights reserved.
+ Copyright (c) 2023 Tinusaur (https://tinusaur.com). All rights reserved.
  Distributed as open source under the MIT License (see the LICENSE.txt file).
  Please, retain in your work a link to the Tinusaur project website.
 -------------------------------------------------------------------------------

@@ -61,8 +61,8 @@ int main(void) {
 		ssd1306_setpos(0, 3);
 		ssd1306tx_string("!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[5]^_`");
 		ssd1306tx_stringxy(ssd1306xled_font8x16data, 0, 5, "TINUSAUR Project");
-		ssd1306_setpos(7, 7);
-		ssd1306tx_string("http://tinusaur.org");
+		ssd1306_setpos(3, 7);
+		ssd1306tx_string("https://tinusaur.com");
 		_delay_ms(TESTING_DELAY << 4);
 	}
 

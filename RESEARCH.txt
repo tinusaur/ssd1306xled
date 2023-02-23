@@ -2,7 +2,7 @@ RESEARCH
 
 
 SSD1306
-http://www.solomon-systech.com/en/product/display-ic/oled-driver-controller/ssd1306/
+https://www.solomon-systech.com/en/product/display-ic/oled-driver-controller/ssd1306/
 128 x 64, Dot Matrix OLED/PLED Segment/Common Driver with Controller
 
 SSD1306 is a single-chip CMOS OLED/PLED driver with controller for organic / polymer light emitting diode dot-matrix graphic display system. It consists of 128 segments and 64 commons. This IC is designed for Common Cathode type OLED panel.
@@ -13,13 +13,13 @@ The SSD1306 embeds with contrast control, display RAM and oscillator, which redu
 
 https://www.adafruit.com/datasheets/SSD1306.pdf
 
-http://www.crystalfontz.com/controllers/Solomon_Systech_SSD1306_v1.1_April_2008.pdf
+https://www.crystalfontz.com/controllers/Solomon_Systech_SSD1306_v1.1_April_2008.pdf
 
 
 ---- Products ----
 
 128x64 OLED
-http://www.adafruit.com/products/326
+https://www.adafruit.com/products/326
 Monochrome 0.96 128x64 OLED graphic display ID: 326 - $19.50 : Adafruit Industries, Unique & fun DIY electronics and kits
 
 
