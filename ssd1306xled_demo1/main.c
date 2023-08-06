@@ -74,6 +74,30 @@ void demo_vsline(uint8_t x, uint8_t r, uint8_t h, uint8_t w) {
 
 // ----------------------------------------------------------------------------
 
+uint8_t vline_vals[] = {
+	0b10000000,
+	0b11000000,
+	0b10100000,
+	0b10010000,
+	0b10001000,
+	0b10000100,
+	0b10000010,
+	0b10000001,
+};
+
+void vline(uint8_t x, uint8_t y, uint8_t h) {
+	ssd1306_setpos(x, y);
+	ssd1306_start_data();
+	ssd1306_byte(vline_vals[h & 0b0111]);
+	ssd1306_stop();
+}
+
+// ----------------------------------------------------------------------------
+
+uint8_t scope_buff[64];
+
+// ----------------------------------------------------------------------------
+
 #define TESTING_DELAY 500
 
 int main(void) {
@@ -116,22 +140,52 @@ int main(void) {
 	uint8_t x = 20;
 	uint8_t y = 20;
 	uint8_t z = 20;
+	uint8_t sv = 1;	// scope value
+	int8_t s = 1;	// step for the scope value
+	int16_t j = 63;		// scope buffer index
 	for (;;) {
 		// ---- Fill out screen with random byte values ----
 		static uint16_t r; // NOTE: For more "real" random numbers this should be 32bit.
-		uint8_t rand;
-		for (uint8_t c = 255; c > 0; c--) {
-			for (uint16_t j = 3; j <= 6; j++) {
-				ssd1306_setpos(32, j);
-				ssd1306_start_data();	// Initiate transmission of data
-				for (uint8_t i = 64; i > 0; i--) {
-					// r = (r * 17 + 83) % 0x3fff;	// Generate a pseudo random number.
-					r = ((r << 4) + r + 83) & 0xffff;	// Optimized (above)
-					rand = r >> 8;
-					ssd1306_byte(rand);
+		uint8_t rand = 0;
+		for (uint8_t c = 0; c < 255; c++) {
+			if (c < 80) {
+				for (uint16_t j = 3; j <= 6; j++) {
+					ssd1306_setpos(32, j);
+					ssd1306_start_data();	// Initiate transmission of data
+					for (uint8_t i = 64; i > 0; i--) {
+						// r = (r * 17 + 83) % 0x3fff;	// Generate a pseudo random number.
+						r = ((r << 4) + r + 83) & 0xffff;	// Optimized (above)
+						rand = r >> 8;
+						ssd1306_byte(rand);
+					}
+					ssd1306_stop();
 				}
-				ssd1306_stop();
+			} else if (c == 80) {
+				// Clear the screen
+				for (uint16_t j = 3; j <= 6; j++) {
+					ssd1306_setpos(32, j);
+					ssd1306_start_data();	// Initiate transmission of data
+					for (uint8_t i = 64; i > 0; i--)ssd1306_byte(0);
+					ssd1306_stop();
+				}
+			} else {
+				for (uint16_t i = 0; i < 64; i++) {
+					r = ((r << 4) + r + 83) & 0xffff;	// Optimized
+					rand = r >> 8;
+					vline(32 + i, 4, rand & 7);
+					vline(32 + i, 6, scope_buff[(i + j) & 0b00111111]);
+				}
+				if (rand & 0b00100001) s = 2 - (rand & 0b0011);
+				if (s > 1) s = 1;
+				sv += s;
+				if (sv > 7) sv = 7;
+				scope_buff[j] = sv;
+				if (j == 0)
+					j = 63;
+				else
+					j--;
 			}
+
 			if (rand & 0b10000000) {
 				if (rand & 0b00100000) x++;
 				if (rand & 0b00010000) x--;
@@ -148,7 +202,7 @@ int main(void) {
 				ssd1306_setpos(100, 2); ssd1306tx_string("P:"); ssd1306tx_numdec(rand & 0x3f);
 			}
 		}
-		_delay_ms(TESTING_DELAY);
+		// _delay_ms(TESTING_DELAY);
 	}
 
 	return 0; // Return the mandatory for the "main" function int value - "0" for success.
